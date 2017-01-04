@@ -1,0 +1,26 @@
+{
+   "background": {
+      "page": "background.html"
+   },
+   "chrome_url_overrides": {
+      "newtab": "index.html"
+   },
+   "description": "一个Chrome的新标签页替换",
+   "icons": {
+      "128": "img/ico128.png",
+      "16": "img/ico16.png",
+      "48": "img/ico48.png",
+      "96": "img/ico96.png"
+   },
+   "manifest_version": 2,
+   "name": "Otaku-for-Chrome",
+   "offline_enabled": true,
+   "page_action": {
+      "default_icon": "img/ico48.png",
+      "default_popup": "popup.html",
+      "default_title": ""
+   },
+   "permissions": ["background", "geolocation", "management", "topSites", "bookmarks", "unlimitedStorage", "topSites", "identity", "http://*/", "https://*/", "chrome://favicon/", "history", "alarms", "notifications", "tabs", "storage", "activeTab", "declarativeContent", "webNavigation", "webRequest", "webRequestBlocking", "cookies" ],
+   "update_url": "",
+   "version": "1.0.0"
+}
