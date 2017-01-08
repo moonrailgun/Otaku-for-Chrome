@@ -1,0 +1,53 @@
+html,body{
+  height: 100%;
+  margin: 0;
+}
+
+#background{
+  height: 100%;
+  width: auto;
+  overflow: hidden;
+  background-color: #8e8e8e;
+}
+
+#background > img{
+  height: auto;
+  width: auto;
+  min-height: 100%;
+  min-width: 100%;
+  display: block;
+  margin: 0;
+  opacity: 0.8;
+}
+
+#toolbar{
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-height: 50px;
+  width: 100%;
+  background: #fff;
+  opacity: 0.8;
+}
+
+#toolbar #search{
+  position: relative;
+  border-left: 1px solid rgba(0,0,0,.075);
+  border-right: 1px solid rgba(0,0,0,.075);
+}
+
+#toolbar #search input{
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  font-size: 15px;
+  border-radius: 0;
+  line-height: 20px;
+  /*position: absolute;*/
+  position: relative;
+  border: 0!important;
+  background: inherit;
+  padding: 15px 55px 15px 30px!important;
+}
