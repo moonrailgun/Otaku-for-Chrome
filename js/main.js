@@ -1,4 +1,10 @@
 $(function() {
+  $('.suggestions').toggleClass('visibility');
+  $('.suggestions').append('<div class="suggestion active">的士</div>');
+  $('.suggestions').append('<div class="suggestion">的士</div>');
+  $('.suggestions').append('<div class="suggestion">的士</div>');
+  $('.suggestions').append('<div class="suggestion">的士</div>');
+
   $('.search').keyup(function(event) {
     var searchStr = $('.search input').val();
     console.log(searchStr);
