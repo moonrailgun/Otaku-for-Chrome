@@ -1,20 +1,39 @@
 $(function() {
-  $('.suggestions').toggleClass('visibility');
-  $('.suggestions').append('<div class="suggestion active">的士</div>');
-  $('.suggestions').append('<div class="suggestion">的士</div>');
-  $('.suggestions').append('<div class="suggestion">的士</div>');
-  $('.suggestions').append('<div class="suggestion">的士</div>');
+  Search.toggleVisibility();
+  $('.search').bind('keyup change',function(event) {
+    var searchStr = Search.getCurrentVal();
 
-  $('.search').keyup(function(event) {
-    var searchStr = $('.search input').val();
-    console.log(searchStr);
-    $.post('https://www.baidu.com/su', {
-      wd: searchStr,
-      json: 1
-    }, function(data, textStatus, xhr) {
-      console.log(data);
-      console.log(textStatus);
-      console.log(xhr);
-    });
+    $.ajax({
+      url: 'http://suggestion.baidu.com/',
+      type: 'GET',
+      dataType: 'text',
+      data: {
+        wd: searchStr,
+        json:1,
+        cb:"callback"
+      },
+      success:function(data){
+        var text = data.match(/callback\((.*)\);/)[1];
+        var json;
+        try {
+          json = window.eval("(" + text + ")");
+        } catch (s) {
+          json = JSON.parse(text);
+        }
+        var sugArr = json.s;
+        Search.updateSuggestions(sugArr);
+      }
+    })
+  });
+
+  $('.search').bind('search',function(e){
+    var searchText = Search.getCurrentVal();
+    if($.trim(searchText) == ""){
+      console.log('搜索内容为空');
+    }else{
+      // console.log(searchText);
+      var url = "https://www.baidu.com/s?wd=" + encodeURI(searchText);
+      window.open(url, "_self");
+    }
   });
 })
