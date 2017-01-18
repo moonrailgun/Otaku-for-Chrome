@@ -85,4 +85,5 @@ $(function() {
   var rightPanel = $('#right-panel');
 
   Core.addWidget('weather', leftPanel);
+  Core.addWidget('hitokoto', centerPanel);
 })
