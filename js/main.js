@@ -79,4 +79,10 @@ $(function() {
       Search.openSearchWindow(searchText);
     }
   });
+
+  var leftPanel = $('#left-panel');
+  var centerPanel = $('#center-panel');
+  var rightPanel = $('#right-panel');
+
+  Core.addWidget('weather', leftPanel);
 })

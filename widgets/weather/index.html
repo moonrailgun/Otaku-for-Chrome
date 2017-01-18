@@ -1,0 +1,40 @@
+<style>
+#weather{
+  /*text-align: right;*/
+  padding: 6px;
+}
+#weather .city{
+  font-size: 30px;
+}
+#weather .tips{
+  font-size: 8px;
+  color: #575757;
+}
+</style>
+
+<div id="weather" class="otk-panel">
+  <h2 class="city">上海</h2>
+  <p>温度:<span class="temperature"></span>℃</p>
+  <p>空气质量:<span class="aqi"></span></p>
+  <p><span class="tips"></span></p>
+</div>
+
+<script>
+$(function(){
+  var city = '上海';
+  var url = 'http://wthrcdn.etouch.cn/weather_mini?city=' + city;
+  $.getJSON(url, function(json, textStatus) {
+    var data = {
+      city:json.data.city,
+      temperature: json.data.wendu,
+      tips:json.data.ganmao,
+      aqi:json.data.aqi,
+      forecast:json.data.forecast,
+    }
+    $('#weather .city').text(data.city);
+    $('#weather .temperature').text(data.temperature);
+    $('#weather .tips').text(data.tips);
+    $('#weather .aqi').text(data.aqi);
+  });
+})
+</script>

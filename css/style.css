@@ -179,3 +179,20 @@ a:focus {
 #toolbar .search .suggestions div.active{
   border-left-color: #738FFE;
 }
+
+#all{
+  position: absolute;
+  top:70px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+#all .otk-panel{
+  height: auto;
+  min-height: 100px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 4px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
