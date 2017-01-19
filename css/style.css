@@ -39,16 +39,10 @@ a:focus {
   width: auto;
   overflow: hidden;
   background-color: #8e8e8e;
-}
-
-#background > img{
-  height: auto;
-  width: auto;
-  min-height: 100%;
-  min-width: 100%;
-  display: block;
-  margin: 0;
-  opacity: 0.8;
+  background-image: url(http://img.infinitynewtab.com/wallpaper/2947.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity:0.8;
 }
 
 #toolbar{

@@ -28,7 +28,6 @@
 $(function(){
   var url = 'http://api.hitokoto.cn/';
   $.getJSON(url, function(json, textStatus) {
-    console.log(json);
     var data = {
       hitokoto:json.hitokoto,
       from: json.from

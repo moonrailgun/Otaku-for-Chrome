@@ -1,0 +1,76 @@
+<style>
+#bilibiliquick{
+  padding: 20px 6px;
+  min-height: 132px!important;
+}
+
+#bilibiliquick h3{
+  text-align: center;
+}
+
+#bilibiliquick .avinput{
+  border: 0!important;
+  padding: 4px 10px;
+  width: 100%;
+  background: inherit;
+}
+#bilibiliquick .tips{
+  font-size: 8px;
+  color: #575757;
+}
+</style>
+
+<div id="bilibiliquick" class="otk-panel">
+  <h3>bilibili快速入口</h3>
+  <input class="avinput" type="text" placeholder="在此输入av号..."/>
+  <span class="tips"></span>
+</div>
+
+<script>
+$(function(){
+  var getAvTitle = function(avcode,cb){
+    code = Math.random();
+    console.log(avcode);
+    console.log(avcode.substring(2));
+    $.ajax({
+      url: 'http://www.bilibilijj.com/API/GetAvTitle',
+      type: 'POST',
+      dataType: 'json',
+      data: {
+        Code: code,
+        t:Math.random(),
+        AV: avcode.substring(2)
+      },
+      success:function(data){
+        if(data.Code == code){
+          cb(data);
+        }
+      }
+    })
+  }
+
+  $('#bilibiliquick .avinput').bind("keyup",function(event){
+    var avcode = $('#bilibiliquick .avinput').val();
+    if(avcode == ""){return;}
+    if(avcode.substring(0,2) == "av"){
+
+    }else if(!isNaN(avcode)){
+      //全是数字
+      avcode = "av" + avcode;
+    }else{
+      $('#bilibiliquick .tips').text('不是一个合法的av号')
+      return;
+    }
+
+    if(event.keyCode == 13){
+      var url = "http://www.bilibili.com/video/" + avcode;
+      window.open(url, "_self");
+    }else{
+      getAvTitle(avcode,function(data){
+        var title = data.Title;
+        $('#bilibiliquick .tips').text(title);
+      })
+    }
+  })
+})
+</script>
