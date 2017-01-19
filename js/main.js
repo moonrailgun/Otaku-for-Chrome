@@ -86,6 +86,7 @@ $(function() {
 
   Core.addWidget('weather', leftPanel);
   Core.addWidget('hitokoto', centerPanel);
+  Core.addWidget('clock', centerPanel);
   Core.addWidget('bilibiliquick', rightPanel);
   Core.addWidget('translate', rightPanel);
 })

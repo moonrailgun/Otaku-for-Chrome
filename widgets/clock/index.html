@@ -1,0 +1,42 @@
+<style>
+#time{
+  padding: 20px 6px;
+  min-height: 280px!important;
+}
+
+#time div{
+  text-align: center;
+}
+
+#time .date{
+  font-size: 20px;
+  color: rgb(88, 88, 88);
+}
+
+#time .time{
+  font-size: 180px;
+  font-weight: 600;
+  line-height: 180px;
+  color: #757575;
+}
+</style>
+
+<div id="time" class="otk-panel">
+  <div class="date">&nbsp;</div>
+  <div class="time">-:-:-</div>
+</div>
+
+<script>
+$(function(){
+  var date = $('#time .date');
+  var time = $('#time .time');
+
+  var updateClock = function(){
+    var myDate = new Date();
+    date.text(myDate.Format("yyyy年MM月dd日"));
+    time.text(myDate.Format("hh:mm"));
+  }
+  updateClock();
+  setInterval(updateClock,10000);
+})
+</script>
