@@ -1,0 +1,87 @@
+<style>
+#translate{
+  padding: 20px 6px;
+  min-height: 180px!important;
+}
+
+#translate h3{
+  text-align: center;
+}
+
+#translate .input{
+  border: 0!important;
+  padding: 4px 10px;
+  width: 100%;
+  background: inherit;
+}
+
+#translate .result p{
+  padding: 0 6px;
+  margin: 0;
+}
+#translate .result p:before{
+  content: '- ';
+}
+</style>
+
+<div id="translate" class="otk-panel">
+  <h3>百度即时翻译</h3>
+  <textarea class="input" rows="2" placeholder="在此输入文字"></textarea>
+  <span class="result"></span>
+</div>
+
+<script>
+$(function(){
+  var langdetect = function(query, cb){
+    $.ajax({
+      url: 'http://fanyi.baidu.com/langdetect',
+      type: 'POST',
+      dataType: 'json',
+      data: {query: query},
+      success:function(json){
+        cb(json);
+      }
+    })
+  }
+
+  $('#translate .input').bind("keyup change",function(event){
+    var query = $('#translate .input').val();
+    query = $.trim(query);
+    if(query != ""){
+      langdetect(query, function(json){
+        var lan = json.lan;
+        var from = lan;
+        var to;
+        if(from == "en"){
+          to = "zh";
+        }else if(from == "zh"){
+          to = "en";
+        }else{
+          to = "zh";
+        }
+
+        $.ajax({
+          url: 'http://fanyi.baidu.com/v2transapi',
+          type: 'POST',
+          dataType: 'json',
+          data: {
+            from: from,
+            to:to,
+            transtype:'realtime',
+            simple_means_flag:3,
+            query:query
+          },
+          success:function(data){
+            var transResult = data.trans_result.data;
+            var result = $('#translate .result');
+            result.html('');
+            $.each(transResult,function(index, el) {
+              result.append('<p>'+el.dst+'</p>');
+            });
+          }
+        })
+      });
+    }
+  })
+})
+</script>
