@@ -37,8 +37,15 @@ $(function() {
     if($.trim(searchText) == ""){
       console.log('搜索内容为空');
     }else{
-      // console.log(searchText);
-      Search.openSearchWindow(searchText);
+      if(Core.checkUrl(searchText)){
+        var url = searchText;
+        if(searchText.indexOf("http")<0){
+          url = "http://" + url;
+        }
+        window.open(url, "_self");
+      }else{
+        Search.openSearchWindow(searchText);
+      }
     }
   });
 
