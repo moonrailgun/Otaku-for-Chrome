@@ -209,4 +209,102 @@ a:focus {
   border-radius: 4px;
   margin-bottom: 10px;
   overflow: hidden;
+  position: relative;
+}
+
+#overlay{
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: none;
+}
+
+#settings{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  background: #fff;
+  min-width: 60%;
+  min-height: 500px;
+  margin-top: -300px;
+  margin-left: -30%;
+  border-radius: 6px;
+  overflow: hidden;
+  display: none;
+  cursor: default;
+}
+
+#settings .close{
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  color: rgb(158, 158, 158);
+  line-height: 0;
+  height: auto;
+  transition: 0.5s;
+}
+#settings .close:hover{
+  color: rgb(94, 94, 94);
+}
+
+#overlay.active, #settings.active{
+  display: block;
+}
+
+#settings .menu{
+  position: absolute;
+  display: block;
+  width: 20%;
+  height: 100%;
+  background-color: rgb(94, 163, 255);
+  color: #fff;
+}
+
+#settings .menu .title{
+  padding: 10px 10px;
+  font-size: 26px;
+  overflow-x: hidden;
+}
+
+#settings .menu .menu-item{
+  font-size: 18px;
+  padding: 6px 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+#settings .menu .menu-item:hover{
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+#settings .menu .menu-item.active{
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+#settings .menu .menu-item.active:after{
+  content: "\f105";
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  /*position: absolute;*/
+  right: 0;
+  line-height: 100%;
+}
+
+#settings .content{
+  margin-left: 20%;
+  padding: 10px;
+}
+
+#settings .content .content-item{
+  display: none;
+}
+
+#settings .content .content-item.active{
+  display: block;
 }

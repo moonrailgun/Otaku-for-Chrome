@@ -22,7 +22,44 @@ $(function(){
         $(obj).remove();
       }
       return obj.src = wallPaperUrl;
-
+    },
+    settings:{
+      add:function(key, value){
+        var localSetting = localStorage.setting;
+        var obj = {};
+        if(localSetting){
+          obj = JSON.parse(localSetting);
+          if("undefined" == typeof obj[key]){
+            obj[key] = value;
+          }else{
+            //该项已存在
+          }
+        }else{
+          obj[key] = value;
+        }
+        localStorage.setting = JSON.stringify(obj);
+      },
+      get:function(key){
+        var localSetting = localStorage.setting;
+        var obj = JSON.parse(localSetting);
+        if(typeof obj[key] == "undefined"){
+          return ""
+        }else{
+          return obj[key]
+        }
+      },
+      set:function(key,value){
+        var localSetting = localStorage.setting;
+        var obj = {};
+        if(localSetting){
+          obj = JSON.parse(localSetting);
+          obj[key] = value;
+        }else{
+          obj[key] = value;
+        }
+        localStorage.setting = JSON.stringify(obj);
+      }
+    },
     checkUrl:function(url){
       // var RegUrl = new RegExp();
       // RegUrl.compile("^[A-Za-z]+://[A-Za-z0-9-_]+\\.[A-Za-z0-9-_%&\?\/.=]+$");
@@ -67,6 +104,29 @@ $(function(){
       });
       return res;
     },
+    toggleSettings:function(){
+      $('#settings').toggleClass('active');
+      $('#overlay').toggleClass('active');
+    },
+    widgetSettings:{
+      set:function(widgetName, jsonData){
+        widgetName = "widget-" + widgetName;
+        var data = jsonData;
+        if("object" == typeof data){
+          data = JSON.stringify(data);
+        }
+        localStorage[widgetName] = data
+      },
+      get:function(widgetName){
+        widgetName = "widget-" + widgetName;
+        var ls = localStorage[widgetName];
+        if(ls){
+          return JSON.parse(ls);
+        }else{
+          return undefined;
+        }
+
+      }
     }
   };
 

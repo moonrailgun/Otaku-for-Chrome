@@ -87,6 +87,39 @@ $(function() {
     }
   });
 
+  $('.menu-toggle').click(function(event) {
+    Core.toggleSettings();
+  });
+
+  $('#settings').on('click', '.menu-item', function(event) {
+    event.preventDefault();
+
+    if(!$(this).hasClass('active')){
+      $('#settings .menu-item').removeClass('active');
+      $(this).addClass('active');
+
+      //切换内容框内容
+      var menuName = $.trim($(this).text());
+      $('#settings .content-item').removeClass('active');
+      $('#settings .content-item').each(function(index, el) {
+        var obj = $(el);
+        if(obj.attr('data-menu') == menuName){
+          obj.addClass('active');
+
+          return false;
+        }
+      });
+    }
+  });
+  $('#settings .close').click(function(event) {
+    Core.toggleSettings();
+  });
+  var saveChange = function(event){
+    console.log("saveChange");
+  }
+  $('#settings').on('change', 'input', saveChange);
+
+
   var leftPanel = $('#left-panel');
   var centerPanel = $('#center-panel');
   var rightPanel = $('#right-panel');
