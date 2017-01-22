@@ -129,4 +129,5 @@ $(function() {
   Core.addWidget('clock', centerPanel);
   Core.addWidget('bilibiliquick', rightPanel);
   Core.addWidget('translate', rightPanel);
+  Core.addWidget('bookmarks',rightPanel);
 })

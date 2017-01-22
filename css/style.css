@@ -202,6 +202,15 @@ a:focus {
   bottom: 0;
 }
 
+#all .row{
+  height: 100%;
+}
+
+#all .otk-panel-col{
+  display: -webkit-box;
+  -webkit-box-orient: vertical
+}
+
 #all .otk-panel{
   height: auto;
   min-height: 100px;
@@ -210,6 +219,10 @@ a:focus {
   margin-bottom: 10px;
   overflow: hidden;
   position: relative;
+}
+
+#all .otk-panel.otk-panel-flex{
+  -webkit-box-flex: 1;
 }
 
 #overlay{
