@@ -26,14 +26,28 @@
 
 <script>
 $(function(){
+  var saveLastData = function(data){
+    var temp = Core.widgetSettings.get("hitokoto") || {};
+    temp.lastData = data
+    Core.widgetSettings.set("hitokoto",temp);
+  }
+  var updateData = function(data){
+    $('#hitokoto .hitokoto').text(data.hitokoto);
+    $('#hitokoto .from').text(data.from);
+  }
+  var settings = Core.widgetSettings.get("hitokoto");
+  if(settings){
+    updateData(settings.lastData);
+  }
+
   var url = 'http://api.hitokoto.cn/';
   $.getJSON(url, function(json, textStatus) {
     var data = {
       hitokoto:json.hitokoto,
       from: json.from
     }
-    $('#hitokoto .hitokoto').text(data.hitokoto);
-    $('#hitokoto .from').text(data.from);
+    updateData(data);
+    saveLastData(data);
   });
 })
 </script>

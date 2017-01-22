@@ -21,7 +21,27 @@
 
 <script>
 $(function(){
+  var updateWeather = function(weatherData){
+    $('#weather .city').text(weatherData.city);
+    $('#weather .temperature').text(weatherData.temperature);
+    $('#weather .tips').text(weatherData.tips);
+    $('#weather .aqi').text(weatherData.aqi);
+  }
+  var saveLastWeather = function(weatherData){
+    var temp = Core.widgetSettings.get("weather");
+    temp.lastWeatherData = weatherData
+    Core.widgetSettings.set("weather",temp);
+  }
+  var settings = Core.widgetSettings.get("weather");
   var city = '上海';
+  if(settings){
+    city = settings.city;
+    lastWeatherData = settings.lastWeatherData;
+    updateWeather(lastWeatherData);
+  }else{
+    Core.widgetSettings.set("weather",{city:"上海"})
+  }
+
   var url = 'http://wthrcdn.etouch.cn/weather_mini?city=' + city;
   $.getJSON(url, function(json, textStatus) {
     var data = {
@@ -31,10 +51,8 @@ $(function(){
       aqi:json.data.aqi,
       forecast:json.data.forecast,
     }
-    $('#weather .city').text(data.city);
-    $('#weather .temperature').text(data.temperature);
-    $('#weather .tips').text(data.tips);
-    $('#weather .aqi').text(data.aqi);
+    updateWeather(data);
+    saveLastWeather(data);
   });
 });
 </script>
