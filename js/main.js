@@ -1,5 +1,4 @@
 $(function() {
-  Search.toggleVisibility();
   $('.search').bind('keyup change',function(event) {
     var keycode = event.keyCode;
     if(keycode == 38 ||keycode == 40){
@@ -8,6 +7,7 @@ $(function() {
 
     var searchStr = Search.getCurrentVal();
     if(searchStr != ""){
+      Search.showSearchSuggestions();
       $.ajax({
         url: 'http://suggestion.baidu.com/',
         type: 'GET',
@@ -29,6 +29,8 @@ $(function() {
           Search.updateSuggestions(sugArr);
         }
       });
+    }else{
+      Search.hideSearchSuggestions();
     }
   });
 
@@ -49,6 +51,7 @@ $(function() {
     }
   });
 
+  //上下移动建议
   $('.search').keydown(function(event) {
     //为兼容中文输入法不能与keyup事件公用
     if(event.keyCode == 38){

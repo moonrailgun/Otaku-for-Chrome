@@ -1,13 +1,24 @@
 $(function(){
   var Search = {
     getCurrentVal:function(){
-      return $('.search input').val();
+
+      return $.trim($('.search input').val());
     },
     setCurrentVal:function(str){
       $('.search input').val(str)
     },
     toggleVisibility:function(){
       $('.suggestions').toggleClass('visibility');
+    },
+    hideSearchSuggestions:function(){
+      if($('.suggestions').hasClass('visibility')){
+        $('.suggestions').removeClass('visibility');
+      }
+    },
+    showSearchSuggestions:function(){
+      if(!$('.suggestions').hasClass('visibility')){
+        $('.suggestions').addClass('visibility');
+      }
     },
     updateSuggestions:function(arr){
       var currentVal = this.getCurrentVal()
