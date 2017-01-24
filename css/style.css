@@ -311,7 +311,7 @@ a:focus {
 
 #settings .content{
   margin-left: 20%;
-  padding: 10px;
+  padding: 20px 10px;
 }
 
 #settings .content .content-item{
@@ -320,4 +320,15 @@ a:focus {
 
 #settings .content .content-item.active{
   display: block;
+}
+
+#settings .content label{
+  margin-right: 10px;
+}
+
+#settings .content input{
+  border-radius: 4px;
+  border: 1px solid rgb(121, 171, 217);
+  padding: 6px 10px;
+
 }

@@ -42,6 +42,14 @@ $(function(){
     Core.widgetSettings.set("weather",{city:"上海"})
   }
 
+  Core.widgetSettings.registerUI("weather",[{
+    type:"text",
+    name:"city",
+    label:{
+      city:"城市"
+    }
+  }],"天气");
+
   var url = 'http://wthrcdn.etouch.cn/weather_mini?city=' + city;
   $.getJSON(url, function(json, textStatus) {
     var data = {

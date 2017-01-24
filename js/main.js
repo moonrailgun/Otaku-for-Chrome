@@ -102,7 +102,7 @@ $(function() {
       $(this).addClass('active');
 
       //切换内容框内容
-      var menuName = $.trim($(this).text());
+      var menuName = $(this).attr('data-menu-name');
       $('#settings .content-item').removeClass('active');
       $('#settings .content-item').each(function(index, el) {
         var obj = $(el);
@@ -119,6 +119,16 @@ $(function() {
   });
   var saveChange = function(event){
     console.log("saveChange");
+    var obj = $(this);
+    var val = obj.val();
+    var widgetName = obj.parent('.content-item').attr('data-menu');
+    var dataName = obj.attr('data-name');
+    if(dataName&&widgetName){
+      var ws = Core.widgetSettings.get(widgetName);
+      ws[dataName] = val;
+      Core.widgetSettings.set(widgetName,ws);
+      console.log('保存成功' + JSON.stringify(ws));
+    }
   }
   $('#settings').on('change', 'input', saveChange);
 

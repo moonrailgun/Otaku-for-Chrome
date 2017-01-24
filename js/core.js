@@ -126,6 +126,23 @@ $(function(){
           return undefined;
         }
 
+      },
+      //widgetLabel可以为空
+      registerUI:function(widgetName,data,widgetLabel){
+        var html = '<div class="content-item" data-menu="'+widgetName+'">';
+        var ws = Core.widgetSettings.get(widgetName);
+        for(var i=0;i<data.length; i++){
+          var item = data[i];
+          var itemHtml = '';
+          var label = item.label;
+          itemHtml += '<label>'+ (label[item.name]?label[item.name]:item.name) +'</label>';
+          itemHtml += '<input type="'+item.type+'" data-name="'+item.name+'" value="'+ws[item.name]+'">';
+          html += itemHtml;
+        }
+        html += '</div>';
+
+        $('#settings .menu-list').append('<div class="menu-item" data-menu-name="'+widgetName+'">'+(widgetLabel?widgetLabel:widgetName)+'</div>');
+        $('#settings .content').append(html);
       }
     }
   };
