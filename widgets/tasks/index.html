@@ -1,0 +1,136 @@
+<style>
+#tasks{
+  padding: 10px;
+  min-height: 250px!important;
+}
+#tasks input[type="text"]{
+  border: 0!important;
+  padding: 4px 10px;
+  width: 100%;
+  background: inherit;
+}
+#tasks ul{
+  list-style-type: none;
+  margin: 0;
+  padding-top: 4px;
+  -webkit-margin-before:0;
+  -webkit-margin-after:0;
+  -webkit-padding-start: 0;
+  overflow-y: auto;
+  max-height: 350px;
+  margin-right: -6px;
+}
+#tasks ul li{
+  font-size: 20px;
+  line-height: 22px;
+  font-weight: 600;
+  padding: 4px;
+  position: relative;
+  display: -webkit-box;
+}
+#tasks ul li:hover{
+  background-color: rgba(0, 0, 0, 0.3);
+}
+#tasks ul li input[type="checkbox"]{
+  margin-right: 6px;
+  display: block;
+}
+#tasks ul li input[type="checkbox"]:checked + span{
+  text-decoration: line-through;
+}
+#tasks ul li span{
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  -webkit-box-flex: 1;
+}
+#tasks ul li span:hover{
+  white-space:normal;
+}
+#tasks ul li .fa{
+  display: none;
+  padding: 0 4px;
+  cursor:pointer;
+}
+#tasks ul li:hover .fa{
+  display: block;
+}
+#tasks ul li .fa:hover{
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+</style>
+
+<div id="tasks" class="otk-panel">
+  <h3>TODO</h3>
+  <input class="task-input" type="text" placeholder="接下来做点什么">
+  <ul class="task-list">
+  </ul>
+</div>
+
+<script>
+$(function(){
+  var loadTasks = function(){
+    var ws = Core.widgetSettings.get("tasks");
+    $.each(ws, function(index, el){
+      var html = '<li><input class="task-check" type="checkbox" '+(el.isCompleted?"checked":"")+'>';
+      html += '<span class="task-content">'+el.content+'</span>';
+      html += '<i class="fa fa-trash delete"></i></li>';
+      $('#tasks .task-list').append(html);
+    });
+  }
+  var saveTasks = function(){
+    console.log('saveTasks');
+    var taskList = $('#tasks .task-list').children('li');
+    var res = [];
+    taskList.each(function(index, el) {
+      var item = $(el);
+      var isCompleted = false;
+      if($(item.children('.task-check')).is(':checked')){
+        isCompleted = true;
+      }
+      var content = $.trim(item.children('.task-content').text());
+      res.push({
+        isCompleted: isCompleted,
+        content: content
+      });
+    });
+    Core.widgetSettings.set("tasks",res);
+  }
+  var addTask = function(taskContent){
+    taskContent = $.trim(taskContent);
+    if(taskContent){
+      var html = '<li><input class="task-check" type="checkbox">';
+      html += '<span class="task-content">'+taskContent+'</span>';
+      html += '<i class="fa fa-trash delete"></i></li>';
+      $('#tasks .task-list').append(html);
+      saveTasks();
+    }
+  }
+  var deleteTask = function(taskContainer){
+    $(taskContainer).remove();
+    saveTasks();
+  }
+  $('#tasks .task-input').keydown(function(event) {
+    if(event.keyCode == 13){
+      var obj = $(this);
+      addTask(obj.val());
+      obj.val('');
+    }
+  });
+  $('#tasks .task-list').on('change', '.task-check', function(event) {
+    event.preventDefault();
+    /* Act on the event */
+    saveTasks();
+  });
+  $('#tasks .task-list').on('click', '.delete', function(event) {
+    event.preventDefault();
+    /* Act on the event */
+    var container = $(this).parent('#tasks .task-list li');
+    deleteTask(container);
+  });
+
+  loadTasks();
+})
+</script>

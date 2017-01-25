@@ -138,6 +138,7 @@ $(function() {
   var rightPanel = $('#right-panel');
 
   Core.addWidget('weather', leftPanel);
+  Core.addWidget('tasks', leftPanel);
   Core.addWidget('hitokoto', centerPanel);
   Core.addWidget('clock', centerPanel);
   Core.addWidget('bilibiliquick', rightPanel);

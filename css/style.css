@@ -53,12 +53,35 @@ a:focus {
   border-radius: 4px;
 }
 
+input[type="checkbox"] {
+  -webkit-appearance: none;
+  background: #fff url(../images/checkbox.png);
+  height: 22px;
+  vertical-align: middle;
+  width: 22px;
+  outline: none;
+}
+input[type="checkbox"]:focus,
+input[type="checkbox"]:hover {
+  background-position: -24px 0;
+}
+input[type="checkbox"]:checked {
+  background-position: -48px 0;
+}
+input[type="checkbox"][disabled] {
+  background-position: -72px 0;
+}
+input[type="checkbox"][disabled]:checked {
+  background-position: -96px 0;
+}
+
 #background{
   height: 100%;
   width: auto;
   overflow: hidden;
   background-color: #8e8e8e;
-  background-image: url(http://img.infinitynewtab.com/wallpaper/2947.jpg);
+  /*background-image: url(http://img.infinitynewtab.com/wallpaper/2947.jpg);*/
+  background-image: url(../images/defaultBackground.jpg);
   background-position: center;
   background-repeat: no-repeat;
   opacity:0.8;
