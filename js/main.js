@@ -161,24 +161,97 @@ $(function() {
       console.log("没有选中文件");
     }
   });
+  $('#settings .widget-list').on('change', '.widget-layout', function(event) {
+    event.preventDefault();
+    /* Act on the event */
+    var widgetLayout = [];
+    $('#settings .widget-list').find('.widget-layout').each(function(index, el) {
+      var obj = $(el);
+      var widgetName = obj.attr('data-widget');
+      var widgetLabel = obj.attr('data-label');
+      var widgetPanel = obj.val();
+      widgetLayout.push({
+        name:widgetName,
+        label:widgetLabel,
+        layout:widgetPanel
+      });
+    });
 
+    console.log(widgetLayout);
+    Core.settings.set("widgetLayout",widgetLayout);
+    console.log("布局设置保存完毕");
+  });
+
+
+
+
+  //读取本地缓存壁纸
+  var lastWallPaperUrl = Core.settings.get("lastWallPaper")
+  if(lastWallPaperUrl){
+    Core.setWallPaper(lastWallPaperUrl);
+  }
+
+  //初始化widgetLayout
+  var widgetLayout = Core.settings.get("widgetLayout");
+  if(!widgetLayout){
+    //默认布局
+    widgetLayout = [
+      {
+        name:"weather",
+        label:"天气",
+        layout:"left"
+      },
+      {
+        name:"tasks",
+        label:"TODO",
+        layout:"left"
+      },
+      {
+        name:"hitokoto",
+        label:"一言",
+        layout:"center"
+      },
+      {
+        name:"clock",
+        label:"时钟",
+        layout:"center"
+      },
+      {
+        name:"bilibiliquick",
+        label:"bilibili快速入口",
+        layout:"right"
+      },
+      {
+        name:"translate",
+        label:"百度翻译",
+        layout:"right"
+      },
+      {
+        name:"bookmarks",
+        label:"书签",
+        layout:"right"
+      }
+    ];
+    Core.settings.set("widgetLayout",widgetLayout);
+  }
 
   var leftPanel = $('#left-panel');
   var centerPanel = $('#center-panel');
   var rightPanel = $('#right-panel');
 
-  Core.addWidget('weather', leftPanel);
-  Core.addWidget('tasks', leftPanel);
-  Core.addWidget('hitokoto', centerPanel);
-  Core.addWidget('clock', centerPanel);
-  Core.addWidget('bilibiliquick', rightPanel);
-  Core.addWidget('translate', rightPanel);
-  Core.addWidget('bookmarks',rightPanel);
+  $.each(widgetLayout,function(index, el) {
+    var widgetName = el.name;
+    var widgetLabel = el.label;
+    var widgetLayout = el.layout;
 
+    if(widgetLayout=="left"){
+      Core.addWidget(widgetName,leftPanel);
+    }else if(widgetLayout=="center"){
+      Core.addWidget(widgetName,centerPanel);
+    }else if(widgetLayout=="right"){
+      Core.addWidget(widgetName,rightPanel);
+    }
 
-  //读取壁纸
-  var lastWallPaperUrl = Core.settings.get("lastWallPaper")
-  if(lastWallPaperUrl){
-    Core.setWallPaper(lastWallPaperUrl);
-  }
+    Core.registerWidgetSettingList(widgetName,widgetLabel,widgetLayout);
+  });
 })

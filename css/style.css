@@ -398,3 +398,17 @@ input[type="checkbox"][disabled]:checked {
   color: #5e5e5e;
   padding: 0 4px;
 }
+#settings .content .widget-list label{
+  font-weight: 600;
+}
+#settings .content .widget-list label:after{
+  content: ":";
+}
+#settings .content .widget-list select{
+  background-color: rgb(121, 171, 217);
+  color: #ffffff;
+  font-size: 16px;
+  border-radius: 2px;
+  padding: 6px 10px;
+  min-width: 200px;
+}

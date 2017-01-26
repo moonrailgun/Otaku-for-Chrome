@@ -1,5 +1,22 @@
 $(function(){
   var Core = {
+    registerWidgetSettingList:function(widgetName,widgetLabel,widgetCurrentLayout){
+      //添加到设置面板
+      var html = '<div class="widget-item"><label>'+widgetLabel+'</label>';
+      html += '<select class="widget-layout" data-widget="'+widgetName+'" data-label="'+widgetLabel+'">';
+      if(widgetCurrentLayout == "left"){
+        html += '<option value="left" selected="selected">显示在左面板</option><option value="center">显示在中面板</option><option value="right">显示在右面板</option><option value="close">关闭</option>';
+      }else if(widgetCurrentLayout == "center"){
+        html += '<option value="left">显示在左面板</option><option value="center" selected="selected">显示在中面板</option><option value="right">显示在右面板</option><option value="close">关闭</option>';
+      }else if(widgetCurrentLayout == "right"){
+        html += '<option value="left">显示在左面板</option><option value="center">显示在中面板</option><option value="right" selected="selected">显示在右面板</option><option value="close">关闭</option>';
+      }else{
+        //close
+        html += '<option value="left">显示在左面板</option><option value="center">显示在中面板</option><option value="right">显示在右面板</option><option value="close" selected="selected">关闭</option>';
+      }
+      html += '</select></div>';
+      $('#settings .widget-list').append(html);
+    },
     addWidget:function(widgetName, container){
       if(!container){
         container = $('#center-panel');
