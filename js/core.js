@@ -164,7 +164,7 @@ $(function(){
         });
       });
     },
-    loadWallPaper:function(url){
+    setWallPaper:function(url){
       Core.settings.set("lastWallPaper",url);
       $('#background').css('background-image', 'url('+url+'?'+Math.random()+')');//立即更新
     },
@@ -176,7 +176,16 @@ $(function(){
         // console.log(blob);
         Core.writeFile("/background.jpg",{data:blob,type:'image/jpeg'},function(localUrl){
           console.log("更换壁纸完毕:"+url);
-          Core.loadWallPaper(localUrl);
+          Core.setWallPaper(localUrl);
+        });
+      })
+    },
+    loadWallPaperByUrl:function(url){
+      Core.getPicBlob(url,function(blob){
+        // console.log(blob);
+        Core.writeFile("/background.jpg",{data:blob,type:'image/jpeg'},function(localUrl){
+          console.log("更换壁纸完毕:"+url);
+          Core.setWallPaper(localUrl);
         });
       })
     }

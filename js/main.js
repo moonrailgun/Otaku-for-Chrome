@@ -118,7 +118,7 @@ $(function() {
     Core.toggleSettings();
   });
   var saveChange = function(event){
-    console.log("saveChange");
+    // console.log("saveChange");
     var obj = $(this);
     var val = obj.val();
     var widgetName = obj.parent('.content-item').attr('data-menu');
@@ -131,6 +131,36 @@ $(function() {
     }
   }
   $('#settings').on('change', 'input', saveChange);
+
+  $('#settings .random-wallpaper').click(function(event) {
+    /* Act on the event */
+    Core.randomLoadWallPaper();
+  });
+  $('#settings .url-wallpaper').keydown(function(event) {
+    /* Act on the event */
+    if(event.keyCode == 13){
+      var url = $(this).val();
+      Core.loadWallPaperByUrl(url);
+    }
+  });
+  $('#settings .local-wallpaper').change(function(event) {
+    /* Act on the event */
+    var file = this.files[0];
+    if(file){
+      console.log(file);
+      if(file.type == "image/jpeg"){
+        Core.writeFile("/background.jpg",{data:file,type:'image/jpeg'},
+          function(localUrl){
+            console.log("更换壁纸完毕:"+file.name);
+            Core.setWallPaper(localUrl);
+          });
+      }else{
+        console.log("文件格式不正确");
+      }
+    }else{
+      console.log("没有选中文件");
+    }
+  });
 
 
   var leftPanel = $('#left-panel');
@@ -149,6 +179,6 @@ $(function() {
   //读取壁纸
   var lastWallPaperUrl = Core.settings.get("lastWallPaper")
   if(lastWallPaperUrl){
-    Core.loadWallPaper(lastWallPaperUrl);
+    Core.setWallPaper(lastWallPaperUrl);
   }
 })
