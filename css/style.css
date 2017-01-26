@@ -249,6 +249,13 @@ input[type="checkbox"][disabled]:checked {
   -webkit-box-flex: 1;
 }
 
+#all input[type="text"],#all textarea{
+  border: 0!important;
+  padding: 4px 10px;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
 #overlay{
   content: "";
   position: fixed;
@@ -331,6 +338,7 @@ input[type="checkbox"][disabled]:checked {
   /*position: absolute;*/
   right: 0;
   line-height: 100%;
+  margin-left: 6px;
 }
 
 #settings .content{

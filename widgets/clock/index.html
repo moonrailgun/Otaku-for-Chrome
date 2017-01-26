@@ -1,19 +1,19 @@
 <style>
-#time{
+#clock{
   padding: 20px 6px;
   min-height: 280px!important;
 }
 
-#time div{
+#clock div{
   text-align: center;
 }
 
-#time .date{
+#clock .date{
   font-size: 20px;
   color: rgb(88, 88, 88);
 }
 
-#time .time{
+#clock .time{
   font-size: 180px;
   font-weight: 600;
   line-height: 180px;
@@ -21,15 +21,15 @@
 }
 </style>
 
-<div id="time" class="otk-panel">
+<div id="clock">
   <div class="date">&nbsp;</div>
   <div class="time">-:-:-</div>
 </div>
 
 <script>
 $(function(){
-  var date = $('#time .date');
-  var time = $('#time .time');
+  var date = $('#clock .date');
+  var time = $('#clock .time');
 
   var updateClock = function(){
     var myDate = new Date();

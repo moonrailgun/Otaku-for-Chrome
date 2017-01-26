@@ -22,9 +22,10 @@ $(function(){
         container = $('#center-panel');
       }
 
+      var outer = $('<div class="otk-panel"></div>').appendTo(container);
       var url = "../widgets/" + widgetName + "/index.html";
       $.get(url,function(data,status){
-        container.append(data);
+        outer.append(data);
       });
     },
     settings:{

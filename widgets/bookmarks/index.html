@@ -11,12 +11,6 @@
   color: inherit;
   cursor: default;
 }
-#bookmarks .search{
-  border: 0!important;
-  padding: 4px 10px;
-  width: 100%;
-  background: inherit;
-}
 #bookmarks .list{
   margin: 10px -4px 10px 0;
   overflow-y: auto;
@@ -67,7 +61,7 @@
 }
 </style>
 
-<div id="bookmarks" class="otk-panel otk-panel-flex">
+<div id="bookmarks">
   <input class="search" type="text" placeholder="搜索书签...">
   <!-- <a href="chrome://bookmarks/" class="fa fa-cog"></a> -->
   <div class="list"></div>
@@ -129,9 +123,10 @@ $(function(){
   }
   updateFullBookmarks();
 
-  $('#bookmarks .list').height($('#bookmarks').height() - 40);
+  $('#bookmarks').parent('div').addClass('otk-panel-flex');
+  $('#bookmarks .list').height($('#bookmarks').parent('.otk-panel').height() - 40);
   $(window).resize(function(event) {
-    $('#bookmarks .list').height($('#bookmarks').height() - 40);
+    $('#bookmarks .list').height($('#bookmarks').parent('.otk-panel').height() - 40);
   });
 
   $('#bookmarks .list').on('click', '.folder .title', function(event) {
