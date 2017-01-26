@@ -10,19 +10,6 @@ $(function(){
         container.append(data);
       });
     },
-    loadWallPaper:function(wallPaperUrl){
-      var obj = new Image();
-
-      obj.onload = function(){
-        $("#background img").attr('src', wallPaperUrl);
-        obj.src = "",
-        $(obj).remove()
-      }
-      obj.onerror = function(){
-        $(obj).remove();
-      }
-      return obj.src = wallPaperUrl;
-    },
     settings:{
       add:function(key, value){
         var localSetting = localStorage.setting;
@@ -41,11 +28,15 @@ $(function(){
       },
       get:function(key){
         var localSetting = localStorage.setting;
-        var obj = JSON.parse(localSetting);
-        if(typeof obj[key] == "undefined"){
-          return ""
+        if(localSetting){
+          var obj = JSON.parse(localSetting);
+          if(typeof obj[key] == "undefined"){
+            return ""
+          }else{
+            return obj[key]
+          }
         }else{
-          return obj[key]
+          return {};
         }
       },
       set:function(key,value){
@@ -144,6 +135,50 @@ $(function(){
         $('#settings .menu-list').append('<div class="menu-item" data-menu-name="'+widgetName+'">'+(widgetLabel?widgetLabel:widgetName)+'</div>');
         $('#settings .content').append(html);
       }
+    },
+    //FileSystem
+    getPicBlob:function(url, callback){
+      var oReq = new XMLHttpRequest();
+      oReq.open("GET", url, true);
+      oReq.responseType = "blob";
+      oReq.onreadystatechange = function () {
+          if (oReq.readyState == oReq.DONE) {
+              var blob = oReq.response;
+              // console.log(blob);
+              // console.log(URL.createObjectURL(blob));
+              callback(blob);
+          }
+      }
+      oReq.send();
+    },
+    /* filePath "/background.jpg"
+     *  data {data:blob,type:'image/jpeg'}
+     */
+    writeFile:function(filePath, data, callback){
+      var filer = new Filer();
+      filer.init({persistent: true, size: 500 * 1024 * 1024}, function(fs) {
+        filer.write(filePath,data, function(fileEntry, fileWriter) {
+          // console.log(fileEntry);
+          // console.log(fileWriter);
+          callback(filer.pathToFilesystemURL(filePath));
+        });
+      });
+    },
+    loadWallPaper:function(url){
+      Core.settings.set("lastWallPaper",url);
+      $('#background').css('background-image', 'url('+url+'?'+Math.random()+')');//立即更新
+    },
+    //壁纸
+    randomLoadWallPaper:function(){
+      var url = "http://img.infinitynewtab.com/wallpaper/"+ (Math.floor(4050 * Math.random()) + 1) +".jpg";
+      // console.log(url);
+      Core.getPicBlob(url,function(blob){
+        // console.log(blob);
+        Core.writeFile("/background.jpg",{data:blob,type:'image/jpeg'},function(localUrl){
+          console.log("更换壁纸完毕:"+url);
+          Core.loadWallPaper(localUrl);
+        });
+      })
     }
   };
 

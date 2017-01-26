@@ -144,4 +144,11 @@ $(function() {
   Core.addWidget('bilibiliquick', rightPanel);
   Core.addWidget('translate', rightPanel);
   Core.addWidget('bookmarks',rightPanel);
+
+
+  //读取壁纸
+  var lastWallPaperUrl = Core.settings.get("lastWallPaper")
+  if(lastWallPaperUrl){
+    Core.loadWallPaper(lastWallPaperUrl);
+  }
 })
