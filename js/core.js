@@ -28,6 +28,41 @@ $(function(){
         outer.append(data);
       });
     },
+    updateWidgetPanel:function(){
+      var widgetLayout = Core.settings.get("widgetLayout");
+      if(widgetLayout){
+        var leftPanel = $('#left-panel');
+        var centerPanel = $('#center-panel');
+        var rightPanel = $('#right-panel');
+
+        $.each(widgetLayout,function(index, el){
+          var widgetName = el.name;
+          var widgetPanel = el.layout;
+          var widget = $('#'+widgetName).parent('.otk-panel');
+          if(widget.length>0){
+            //可用存在
+            if(widgetPanel == "left"){
+              widget.appendTo(leftPanel);
+            }else if(widgetPanel == "center"){
+              widget.appendTo(centerPanel);
+            }else if(widgetPanel == "right"){
+              widget.appendTo(rightPanel);
+            }else{
+              widget.remove();
+            }
+          }else{
+            //不可用。需重新载入
+            if(widgetPanel == "left"){
+              Core.addWidget(widgetName,leftPanel);
+            }else if(widgetPanel == "center"){
+              Core.addWidget(widgetName,centerPanel);
+            }else if(widgetPanel == "right"){
+              Core.addWidget(widgetName,rightPanel);
+            }
+          }
+        });
+      }
+    },
     settings:{
       add:function(key, value){
         var localSetting = localStorage.setting;
