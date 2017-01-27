@@ -165,20 +165,27 @@ $(function() {
     event.preventDefault();
     /* Act on the event */
     var widgetLayout = [];
+    var widgetNameList = [];
     $('#settings .widget-list').find('.widget-layout').each(function(index, el) {
+      //数据来源于设置面板
       var obj = $(el);
       var widgetName = obj.attr('data-widget');
       var widgetLabel = obj.attr('data-label');
       var widgetPanel = obj.val();
-      widgetLayout.push({
-        name:widgetName,
-        label:widgetLabel,
-        layout:widgetPanel
-      });
+      if(widgetNameList.indexOf(widgetName) < 0){
+        //名称列表不存在该布局。确保唯一性
+        widgetLayout.push({
+          name:widgetName,
+          label:widgetLabel,
+          layout:widgetPanel
+        });
+        widgetNameList.push(widgetName);
+      }
     });
 
-    console.log(widgetLayout);
+    // console.log(widgetLayout);
     Core.settings.set("widgetLayout",widgetLayout);
+    Core.updateWidgetPanel();
     console.log("布局设置保存完毕");
   });
 
@@ -192,47 +199,48 @@ $(function() {
   }
 
   //初始化widgetLayout
+  var defaultWidgetLayout = [
+    {
+      name:"weather",
+      label:"天气",
+      layout:"left"
+    },
+    {
+      name:"tasks",
+      label:"TODO",
+      layout:"left"
+    },
+    {
+      name:"hitokoto",
+      label:"一言",
+      layout:"center"
+    },
+    {
+      name:"clock",
+      label:"时钟",
+      layout:"center"
+    },
+    {
+      name:"bilibiliquick",
+      label:"bilibili快速入口",
+      layout:"right"
+    },
+    {
+      name:"translate",
+      label:"百度翻译",
+      layout:"right"
+    },
+    {
+      name:"bookmarks",
+      label:"书签",
+      layout:"right"
+    }
+  ];
   var widgetLayout = Core.settings.get("widgetLayout");
   if(!widgetLayout){
     //默认布局
-    widgetLayout = [
-      {
-        name:"weather",
-        label:"天气",
-        layout:"left"
-      },
-      {
-        name:"tasks",
-        label:"TODO",
-        layout:"left"
-      },
-      {
-        name:"hitokoto",
-        label:"一言",
-        layout:"center"
-      },
-      {
-        name:"clock",
-        label:"时钟",
-        layout:"center"
-      },
-      {
-        name:"bilibiliquick",
-        label:"bilibili快速入口",
-        layout:"right"
-      },
-      {
-        name:"translate",
-        label:"百度翻译",
-        layout:"right"
-      },
-      {
-        name:"bookmarks",
-        label:"书签",
-        layout:"right"
-      }
-    ];
-    Core.settings.set("widgetLayout",widgetLayout);
+    widgetLayout = defaultWidgetLayout;
+    Core.settings.set("widgetLayout", widgetLayout);
   }
 
   var leftPanel = $('#left-panel');
@@ -245,13 +253,13 @@ $(function() {
     var widgetLayout = el.layout;
 
     if(widgetLayout=="left"){
-      Core.addWidget(widgetName,leftPanel);
+      Core.addWidget(widgetName, leftPanel);
     }else if(widgetLayout=="center"){
-      Core.addWidget(widgetName,centerPanel);
+      Core.addWidget(widgetName, centerPanel);
     }else if(widgetLayout=="right"){
-      Core.addWidget(widgetName,rightPanel);
+      Core.addWidget(widgetName, rightPanel);
     }
 
-    Core.registerWidgetSettingList(widgetName,widgetLabel,widgetLayout);
+    Core.registerWidgetSettingList(widgetName,widgetLabel,widgetLayout);//注册到设置面板
   });
 })
