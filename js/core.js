@@ -63,6 +63,35 @@ $(function(){
         });
       }
     },
+    updateLinks:function(){
+      var linksSettings = Core.settings.get("links");
+
+      //主面板
+      var toolbarLinks = $('#toolbar .links');
+      toolbarLinks.html('');
+      var html = '';
+      for(var i=0;i<linksSettings.length;i++){
+        var obj = {
+          label:linksSettings[i].label,
+          website:linksSettings[i].website
+        };
+        html += '<a href="'+obj.website+'">'+obj.label+'</a>';
+      }
+      toolbarLinks.html(html);
+
+      //设置面板
+      var settingsLinks = $('#settings .links-list');
+      settingsLinks.html('');
+      html = '';
+      for(var i=0;i<linksSettings.length;i++){
+        var obj = {
+          label:linksSettings[i].label,
+          website:linksSettings[i].website
+        };
+        html += '<a class="links-item" href="'+obj.website+'">'+obj.label+'<i class="fa fa-close"></i></a>';
+      }
+      settingsLinks.html(html);
+    },
     settings:{
       add:function(key, value){
         var localSetting = localStorage.setting;

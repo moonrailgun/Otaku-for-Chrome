@@ -262,4 +262,66 @@ $(function() {
 
     Core.registerWidgetSettingList(widgetName,widgetLabel,widgetLayout);//注册到设置面板
   });
+
+  //links
+  $('#settings .add-link').click(function(event) {
+    var label = $.trim($('#settings .link-label').val());
+    var website = $.trim($('#settings .link-website').val()) ;
+
+    if(label == "" || website == ""){
+      $('#settings .links-tip').text('内容不能为空');
+    }else if(!Core.checkUrl(website)){
+      $('#settings .links-tip').text(website+' 不是一个合法的网址');
+    }else{
+      if(website.indexOf("http")<0){
+        website = "http://" + website;
+      }
+
+      var linksSettings = Core.settings.get("links");
+      var obj = {
+        label:label,
+        website:website
+      }
+      if(linksSettings){
+        for(var i=0;i<linksSettings.length;i++){
+          if(linksSettings[i].website == website){
+            $('#settings .links-tip').text('网址已存在');
+            return;
+          }
+        }
+
+        linksSettings.push(obj);
+      }else{
+        linksSettings = [obj];
+      }
+      Core.settings.set("links", linksSettings);
+      // console.log(linksSettings);
+      Core.updateLinks();
+    }
+  });
+  $('#settings .links-list').on('click', 'i.fa', function(event) {
+    event.preventDefault();
+    /* Act on the event */
+    var deleteUrl = $(this).parent('.links-item').attr('href');
+    var linksSettings = Core.settings.get("links");
+    $.each(linksSettings,function(index, el) {
+      if(el.website == deleteUrl){
+        linksSettings.splice(index, 1);
+        return false;
+      }
+    });
+    Core.settings.set("links",linksSettings);
+    // console.log(linksSettings);
+    Core.updateLinks();
+  });
+
+  var linksSettings = Core.settings.get("links");
+  if(!linksSettings){
+    var defaultLinks = [{
+      label:"Gmail",
+      website:"https://mail.google.com/mail/"
+    }];
+    Core.settings.set("links",defaultLinks);
+  }
+  Core.updateLinks();
 })

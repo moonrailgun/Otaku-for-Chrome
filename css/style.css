@@ -131,6 +131,10 @@ input[type="checkbox"][disabled]:checked {
   font-size: 14px;
 }
 
+#toolbar .links a{
+  margin-left: 4px;
+}
+
 #toolbar .links a:hover{
   color: #444;
   text-decoration: none;
@@ -404,6 +408,7 @@ input[type="checkbox"][disabled]:checked {
 
 #settings .content .sub-item{
   padding-left: 10px;
+  margin-bottom: 10px;
 }
 
 #settings .content .tips{
@@ -424,4 +429,18 @@ input[type="checkbox"][disabled]:checked {
   border-radius: 2px;
   padding: 6px 10px;
   min-width: 200px;
+}
+
+#settings .content .links-tip{
+  padding-left: 6px;
+  color:#e33b3b;
+}
+#settings .content .links-list .links-item{
+  margin-right: 4px;
+}
+#settings .content .links-list .links-item .fa-close{
+  margin-left: 6px;
+}
+#settings .content .links-list .links-item .fa-close:hover{
+  color:#e33b3b;
 }
