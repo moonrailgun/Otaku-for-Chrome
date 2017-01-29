@@ -274,6 +274,8 @@ input[type="checkbox"][disabled]:checked {
   background: #fff;
   min-width: 60%;
   min-height: 500px;
+  max-height: 650px;
+  height: auto;
   margin-top: -300px;
   margin-left: -30%;
   border-radius: 6px;
@@ -344,6 +346,9 @@ input[type="checkbox"][disabled]:checked {
 #settings .content{
   margin-left: 20%;
   padding: 20px 10px;
+  overflow-y: auto;
+  max-height: 650px;
+  height: auto;
 }
 
 #settings .content .content-item{
