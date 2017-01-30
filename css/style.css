@@ -444,3 +444,7 @@ input[type="checkbox"][disabled]:checked {
 #settings .content .links-list .links-item .fa-close:hover{
   color:#e33b3b;
 }
+
+#settings .content a.system-reset{
+  background-color: #d93434;
+}

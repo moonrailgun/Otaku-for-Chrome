@@ -324,4 +324,11 @@ $(function() {
     Core.settings.set("links",defaultLinks);
   }
   Core.updateLinks();
+
+  //系统
+  $('#settings .system-reset').click(function(event) {
+    console.log("清除所有localStorage");
+    localStorage.clear();
+    location.reload(true);
+  });
 })
