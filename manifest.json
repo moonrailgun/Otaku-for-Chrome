@@ -7,13 +7,18 @@
     },
     "description": "一个Chrome的新标签页替换",
     "manifest_version": 2,
-    "name": "Otaku-for-Chrome",
+    "name": "Otaku! - 新标签页替换",
     "offline_enabled": true,
     "browser_action": {
       "default_title": "Otaku!"
     },
+    "icons": {
+  		"16": "icon/16.png",
+  		"48": "icon/48.png",
+  		"128": "icon/128.png"
+  	},
     "options_page": "index.html",
-    "permissions": ["background", "geolocation", "management", "topSites", "bookmarks", "unlimitedStorage", "topSites", "identity", "http://*/", "https://*/","http://*/*","http://*.baidu.com/*", "chrome://favicon/", "history", "alarms", "notifications", "tabs", "storage", "activeTab", "declarativeContent", "webNavigation", "webRequest", "webRequestBlocking", "cookies"],
+    "permissions": ["background", "management", "topSites", "bookmarks", "unlimitedStorage", "identity", "http://*/", "https://*/","http://*/*","http://*.baidu.com/*", "chrome://favicon/", "history", "alarms", "notifications", "tabs", "storage", "activeTab", "declarativeContent", "webNavigation", "webRequest", "webRequestBlocking", "cookies"],
     "version": "1.0.0",
     "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
 }
