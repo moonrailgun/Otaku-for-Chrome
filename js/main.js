@@ -127,6 +127,7 @@ $(function() {
       var ws = Core.widgetSettings.get(widgetName);
       ws[dataName] = val;
       Core.widgetSettings.set(widgetName,ws);
+      Core.addWebmessage('保存成功,刷新后生效');
       console.log('保存成功' + JSON.stringify(ws));
     }
   }
@@ -187,6 +188,14 @@ $(function() {
     Core.settings.set("widgetLayout",widgetLayout);
     Core.updateWidgetPanel();
     console.log("布局设置保存完毕");
+  });
+  $('body').on('click', '.web-message .fa-close', function(event) {
+    event.preventDefault();
+    /* Act on the event */
+    var obj = $(this).parent('.web-message');
+    if(obj){
+      obj.remove();
+    }
   });
 
 

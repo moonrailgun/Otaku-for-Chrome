@@ -270,6 +270,26 @@ $(function(){
           Core.setWallPaper(localUrl);
         });
       })
+    },
+    addWebmessage:function(messageContent){
+      var html = '<div class="web-message"><div class="web-message-content">'+messageContent+'</div><i class="fa fa-close"></i></div>';
+      var dom = $(html);
+      dom.appendTo('body');
+      setTimeout(function(){
+        if(dom){
+          dom.addClass('show');
+        }
+      },0);
+      setTimeout(function(){
+        if(dom){
+          dom.addClass('hide');
+        }
+      },5000);
+      setTimeout(function(){
+        if(dom){
+          dom.remove();
+        }
+      },10000);
     }
   };
 

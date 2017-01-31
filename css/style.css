@@ -448,3 +448,31 @@ input[type="checkbox"][disabled]:checked {
 #settings .content a.system-reset{
   background-color: #d93434;
 }
+
+.web-message{
+  position: fixed;
+  left: -260px;
+  bottom: 40px;
+  height: 60px;
+  width: 260px;
+  background-color: rgba(88, 175, 255, 0.6);
+  border-radius: 2px;
+  padding: 10px;
+  transition:left 0.6s ease-in;
+  font-size: 18px;
+  font-weight: 600;
+  z-index: 2;
+  border: 1px solid rgba(#000000, 0.4);
+}
+.web-message.show{
+  left: 0;
+}
+.web-message.hide{
+  left: -260px;
+}
+.web-message .fa-close{
+  position: absolute;
+  right: 6px;
+  top: 6px;
+  color: inherit;
+}
