@@ -12,11 +12,12 @@
 ![](/images/预览2.jpg)
 
 ## 环境与依赖
-为了使项目轻量化，依赖内容仅为
+为了使项目轻量化，依赖内容仅为:
 - dom操作库 `jquery`
 - 沙盒文件操作库 `filer.js`
 - 字符字体 `font-awesome`
 - 全局格式与栅格布局 `bootstrap-grid`与`bootstrap-reboot`
+
 没有大型的JS框架应用。使项目小型化
 
 ## 小部件的开发与约定
