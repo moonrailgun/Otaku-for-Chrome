@@ -50,6 +50,28 @@ $('#clock .class');
 
 也可以分离js与css文件。引入方式遵循ajax载入解析方式。
 
+## 注册小部件信息到设置页面
+可以通过`Core.widgetSettings.registerUI(widgetName,data,widgetLabel)`方法来将部件的设置内容注册到主设置中。以达到给用户自定义个性化设置的目的。
+
+- widgetName:部件的唯一名
+- data:注册的数据，是一个数组，可以注册多个值
+  - type:输入input标签的类型。如text
+  - name:输入标签的唯一名
+  - label:输入标签的对应显示名。为一个对象{唯一名:显示名}
+- widgetLabel:部件的显示名，可以为空
+
+天气的例子：
+```JavaScript
+Core.widgetSettings.registerUI("weather",[{
+  type:"text",
+  name:"city",
+  label:{
+    city:"城市"
+  }
+}],"天气");
+```
+
+
 ### 应用部件
 在`js/main.js`目录下找到默认部件js对象`defaultWidgetLayout`上，手动添加部件内容。并删除`localStorage`上的`setting`内容使应用能够加载默认部件列表。
 添加的部件信息格式如下:
