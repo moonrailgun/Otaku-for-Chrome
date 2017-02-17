@@ -124,9 +124,9 @@ $(function(){
   updateFullBookmarks();
 
   $('#bookmarks').parent('div').addClass('otk-panel-flex');
-  $('#bookmarks .list').height($('#bookmarks').parent('.otk-panel').height() - 40);
+  $('#bookmarks .list').height($('#bookmarks').parent('.otk-panel').height() - 60);
   $(window).resize(function(event) {
-    $('#bookmarks .list').height($('#bookmarks').parent('.otk-panel').height() - 40);
+    $('#bookmarks .list').height($('#bookmarks').parent('.otk-panel').height() - 60);
   });
 
   $('#bookmarks .list').on('click', '.folder .title', function(event) {

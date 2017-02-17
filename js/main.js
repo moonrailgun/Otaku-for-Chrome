@@ -58,25 +58,21 @@ $(function() {
       //up
       var oldActiveItem = $('.suggestions .suggestion.active');
       var newActiveItem = oldActiveItem.prev('.suggestion');
-      if(newActiveItem[0]){
-        oldActiveItem.removeClass('active');
-        newActiveItem.addClass('active');
-      }else{
-        oldActiveItem.removeClass('active');
-        oldActiveItem.nextAll().last().addClass('active');
+      if(!newActiveItem[0]){
+        newActiveItem = oldActiveItem.nextAll().last();
       }
+      oldActiveItem.removeClass('active');
+      newActiveItem.addClass('active');
       Search.setCurrentVal(newActiveItem.text());
     }else if(event.keyCode == 40){
       //down
       var oldActiveItem = $('.suggestions .suggestion.active');
       var newActiveItem = oldActiveItem.next();
-      if(newActiveItem[0]){
-        oldActiveItem.removeClass('active');
-        newActiveItem.addClass('active');
-      }else{
-        oldActiveItem.removeClass('active');
-        oldActiveItem.prevAll().last().addClass('active');
+      if(!newActiveItem[0]){
+        newActiveItem = oldActiveItem.prevAll().last();
       }
+      oldActiveItem.removeClass('active');
+      newActiveItem.addClass('active');
       Search.setCurrentVal(newActiveItem.text());
     }
   });
