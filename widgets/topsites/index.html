@@ -1,0 +1,84 @@
+<style>
+#topsites{
+  padding: 20px;
+  position: relative;
+  max-height: 100%;
+}
+#topsites .topsites-col{
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: #575757;
+}
+#topsites .topsites-col i.fa{
+  transition: all .6s ease-in-out;
+}
+#topsites .topsites-col i.fa:hover{
+  color: #0d0d0d;
+}
+.topsites-list{
+  overflow-y: auto;
+  height: 100%;
+}
+#topsites .topsites-list .website{
+  height: 24px;
+  width: 50%;
+  padding: 0 6px;
+  border-radius: 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 24px;
+  float: left;
+  text-decoration: none;
+  color: inherit;
+}
+#topsites .topsites-list .website:hover{
+  background-color: rgba(0, 0, 0, 0.3);
+}
+#topsites .topsites-list .website img{
+  vertical-align:middle;
+  display: inline;
+  width: 16px;
+  height: 16px;
+  line-height: 24px;
+  margin-right: 2px;
+}
+#topsites .topsites-list .website .title{
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: inline;
+  width: 100px;
+  font-size: 16px;
+}
+#topsites.one-col .topsites-list .website{
+  width: 100%;
+}
+</style>
+
+<div id="topsites">
+  <h3>你可能要去...</h3>
+  <div class="topsites-col"><i class="fa fa-reorder"></i></div>
+  <div class="topsites-list"></div>
+</div>
+
+<script>
+$('#topsites .topsites-col').click(function(event) {
+  $('#topsites').toggleClass('one-col');
+});
+chrome.topSites.get(function(list){
+  var html = '';
+  for(var i = 0;i<list.length;i++){
+    var website = list[i];
+    var title = website["title"];
+    var url = website["url"];
+    html += '<a class="website" href="'+url+'" title="'+title+'">';
+    html += '<img src="chrome://favicon/'+url+'" />';
+    html += '<span class="title">'+title+'</span>';
+    html += '</a>';
+  }
+  html += '<div class="clear"></div>';
+  $('#topsites .topsites-list').html(html);
+})
+</script>

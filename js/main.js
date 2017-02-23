@@ -239,6 +239,11 @@ $(function() {
       name:"bookmarks",
       label:"书签",
       layout:"right"
+    },
+    {
+      name:"topsites",
+      label:"最近网站",
+      layout:"close"
     }
   ];
   var widgetLayout = Core.settings.get("widgetLayout");
