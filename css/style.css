@@ -77,6 +77,10 @@ input[type="checkbox"][disabled]:checked {
   background-position: -96px 0;
 }
 
+.clear{
+  clear: both;
+}
+
 #background{
   height: 100%;
   width: auto;
@@ -237,8 +241,10 @@ input[type="checkbox"][disabled]:checked {
 }
 
 #all .otk-panel-col{
-  display: -webkit-box;
-  -webkit-box-orient: vertical
+  /*display: -webkit-box;*/
+  /*-webkit-box-orient: vertical;*/
+  display: flex;
+  flex-direction:column;
 }
 
 #all .otk-panel{
@@ -250,9 +256,16 @@ input[type="checkbox"][disabled]:checked {
   overflow: hidden;
   position: relative;
 }
-
+#all .otk-panel.otk-panel-fixed{
+  -webkit-flex-grow: 0;
+  -webkit-flex-shrink: 0;
+}
 #all .otk-panel.otk-panel-flex{
-  -webkit-box-flex: 1;
+  /*-webkit-box-flex: 1;*/
+  -webkit-flex-grow: 1;
+}
+#all .otk-panel.otk-panel-shrink{
+  -webkit-flex-shrink: 1;
 }
 
 #all input[type="text"],#all textarea{
