@@ -255,16 +255,21 @@ input[type="checkbox"][disabled]:checked {
   margin-bottom: 10px;
   overflow: hidden;
   position: relative;
+  flex-shrink: 0;
+  -webkit-flex-shrink: 0;
 }
 #all .otk-panel.otk-panel-fixed{
+  flex-grow: 0;
+  flex-shrink: 0;
   -webkit-flex-grow: 0;
   -webkit-flex-shrink: 0;
 }
 #all .otk-panel.otk-panel-flex{
-  /*-webkit-box-flex: 1;*/
+  flex-grow: 1;
   -webkit-flex-grow: 1;
 }
 #all .otk-panel.otk-panel-shrink{
+  flex-shrink: 1;
   -webkit-flex-shrink: 1;
 }
 
