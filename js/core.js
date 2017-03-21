@@ -247,8 +247,11 @@ $(function(){
       });
     },
     setWallPaper:function(url){
-      Core.settings.set("lastWallPaper",url);
-      $('#background').css('background-image', 'url('+url+'?'+Math.random()+')');//立即更新
+      if(typeof(url) == "string"){
+        Core.settings.set("lastWallPaper",url);
+        $('#background').css('background-image', 'url('+url+'?'+Math.random()+')');//立即更新
+        $('#settings .wallpaper img.thumbnail').attr('src', url+'?'+Math.random());//立即设置缩略图更新
+      }
     },
     //壁纸
     randomLoadWallPaper:function(){

@@ -86,7 +86,6 @@ input[type="checkbox"][disabled]:checked {
   width: auto;
   overflow: hidden;
   background-color: #8e8e8e;
-  /*background-image: url(http://img.infinitynewtab.com/wallpaper/2947.jpg);*/
   background-image: url(../images/defaultBackground.jpg);
   background-position: center;
   background-repeat: no-repeat;
@@ -383,6 +382,7 @@ input[type="checkbox"][disabled]:checked {
   margin-left: 20%;
   padding: 20px 10px;
   overflow-y: auto;
+  overflow-x: hidden;
   /*max-height: 650px;*/
   max-height: 100%;
   height: auto;
@@ -449,8 +449,16 @@ input[type="checkbox"][disabled]:checked {
   font-size: 14px;
   color: #5e5e5e;
   padding: 0 4px;
-
 }
+
+#settings .content .wallpaper .url-wallpaper{
+  max-width: 100%;
+}
+#settings .content .wallpaper .thumbnail{
+  width:100%;
+  margin-bottom: 6px;
+}
+
 #settings .content .widget-list label{
   font-weight: 600;
 }

@@ -76,15 +76,24 @@
       <div class="content-item active" data-menu="common">
         <h2>壁纸</h2>
         <div class="sub-item">
-          <a href="#" class="random-wallpaper">随机选择</a>
-          <p><strong>或</strong></p>
-          <input class="url-wallpaper" type="text" placeholder="输入图片地址">
-          <p><strong>或</strong></p>
-          <a>
-            <span>浏览本地图片</span>
-            <input class="local-wallpaper" type="file" accept="image/jpeg">
-          </a>
-          <p class="tips">只支持jpg格式图片</p>
+          <div class="wallpaper row">
+            <div class="col-6">
+              <a href="#" class="random-wallpaper">随机选择</a>
+              <p><strong>或</strong></p>
+              <input class="url-wallpaper" type="text" placeholder="输入图片地址">
+              <p><strong>或</strong></p>
+              <a>
+                <span>浏览本地图片</span>
+                <input class="local-wallpaper" type="file" accept="image/jpeg">
+              </a>
+              <p class="tips">只支持jpg格式图片</p>
+            </div>
+            <div class="col-6">
+              <img class="thumbnail" src="./images/defaultBackground.jpg" />
+              <p class="tips">右键上图另存为即可保存壁纸</p>
+            </div>
+          </div>
+
         </div>
         <h2>小部件</h2>
         <div class="sub-item widget-list">

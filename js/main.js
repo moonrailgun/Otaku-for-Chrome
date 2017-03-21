@@ -129,18 +129,18 @@ $(function() {
   }
   $('#settings').on('change', 'input', saveChange);
 
-  $('#settings .random-wallpaper').click(function(event) {
+  $('#settings .wallpaper .random-wallpaper').click(function(event) {
     /* Act on the event */
     Core.randomLoadWallPaper();
   });
-  $('#settings .url-wallpaper').keydown(function(event) {
+  $('#settings .wallpaper .url-wallpaper').keydown(function(event) {
     /* Act on the event */
     if(event.keyCode == 13){
       var url = $(this).val();
       Core.loadWallPaperByUrl(url);
     }
   });
-  $('#settings .local-wallpaper').change(function(event) {
+  $('#settings .wallpaper .local-wallpaper').change(function(event) {
     /* Act on the event */
     var file = this.files[0];
     if(file){
