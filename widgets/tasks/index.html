@@ -98,7 +98,7 @@ $(function(){
       var html = '<li><input class="task-check" type="checkbox">';
       html += '<span class="task-content">'+taskContent+'</span>';
       html += '<i class="fa fa-trash delete"></i></li>';
-      $('#tasks .task-list').append(html);
+      $('#tasks .task-list').prepend(html);
       saveTasks();
     }
   }
