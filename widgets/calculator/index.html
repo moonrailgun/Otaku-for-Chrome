@@ -1,0 +1,48 @@
+<style>
+#calculator{
+  padding: 15px 6px 10px;
+  min-height: 123px!important;
+}
+
+#calculator h3{
+  text-align: center;
+
+}
+
+#calculator p{
+  user-select: auto;
+  -webkit-user-select: auto;
+}
+
+#calculator .result p{
+  padding: 0;
+  margin: 0;
+}
+#calculator .result p:before{
+  content: '= ';
+}
+</style>
+
+<div id="calculator">
+  <h3>简易计算器</h3>
+  <textarea class="input" rows="1" placeholder="在此输入算式"></textarea>
+  <span class="result"></span>
+</div>
+
+<script>
+$(function(){
+  $('#calculator .input').bind("keyup change",function(event){
+    var query = $('#calculator .input').val();
+    query = $.trim(query);
+    if(query){
+      try {
+        $('#calculator .result').html("<p>" + eval(query) + "</p>");
+      }catch(e) {
+        $('#calculator .result').text('不合法的输入');
+      }
+    }else{
+      $('#calculator .result').text('');
+    }
+  })
+})
+</script>

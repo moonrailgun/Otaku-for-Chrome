@@ -211,6 +211,11 @@ $(function() {
       layout:"left"
     },
     {
+      name:"calculator",
+      label:"简易计算器",
+      layout:"left"
+    },
+    {
       name:"tasks",
       label:"TODO",
       layout:"left"
@@ -228,7 +233,7 @@ $(function() {
     {
       name:"bilibiliquick",
       label:"bilibili快速入口",
-      layout:"right"
+      layout:"close"
     },
     {
       name:"translate",
@@ -251,6 +256,25 @@ $(function() {
     //默认布局
     widgetLayout = defaultWidgetLayout;
     Core.settings.set("widgetLayout", widgetLayout);
+  }else{
+    //检测布局是否需要更新
+    var curNameList = [];
+    var shouldUpdateWidgetLayout = false;
+    for (var i = 0; i < widgetLayout.length; i++) {
+      var item = widgetLayout[i];
+      curNameList.push(item.name);
+    }
+    for (var i = 0; i < defaultWidgetLayout.length; i++) {
+      var item = defaultWidgetLayout[i];
+      if(curNameList.indexOf(item.name) == -1){
+        widgetLayout.insert(i, item);
+        shouldUpdateWidgetLayout = true;
+      }
+    }
+
+    if(shouldUpdateWidgetLayout){
+      Core.settings.set("widgetLayout", widgetLayout);
+    }
   }
 
   var leftPanel = $('#left-panel');
