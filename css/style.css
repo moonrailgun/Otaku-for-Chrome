@@ -38,6 +38,7 @@ a:focus {
 
 ::-webkit-scrollbar {
   width: 6px;
+  height: 6px;
   background-color: transparent;
 }
 
@@ -355,6 +356,7 @@ input[type="checkbox"][disabled]:checked {
   font-size: 18px;
   padding: 6px 10px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  white-space: nowrap;
 }
 
 #settings .menu .menu-item:hover{

@@ -1,0 +1,67 @@
+<style>
+#githubContributions {
+  /*text-align: right;*/
+  padding: 6px;
+  overflow-x: auto;
+  min-height: 128px;
+}
+#githubContributions .tip {
+  text-align: center;
+}
+#githubContributions text.wday {
+  font-size: 9px;
+  fill: #767676;
+}
+#githubContributions text.month {
+  font-size: 10px;
+  fill: #767676;
+}
+</style>
+
+<div id="githubContributions"></div>
+
+<script>
+$(function(){
+  var updateContributions = function(weatherData){
+    $('#githubContributions').html(weatherData);
+  }
+  var saveLastContributions = function(contributionsData){
+    var temp = Core.widgetSettings.get("githubContributions");
+    temp.lastContributions = contributionsData;
+    Core.widgetSettings.set("githubContributions",temp);
+  }
+  var settings = Core.widgetSettings.get("githubContributions");
+  var username = '';
+  var lastContributionsData = '';
+  if(settings){
+    username = settings.username;
+    lastContributionsData = settings.lastContributions;
+    updateContributions(lastContributionsData);
+  }else{
+    Core.widgetSettings.set("githubContributions",{username:'', lastContributionsData: lastContributionsData});
+  }
+
+  Core.widgetSettings.registerUI("githubContributions",[{
+    type:"text",
+    name:"username",
+    label:{
+      username:"用户名"
+    }
+  }],"Github贡献");
+
+  if(username){
+    var url = 'https://github.com/users/'+username+'/contributions';
+    $.ajax({
+      url: url,
+      type: 'GET',
+      success: function(data) {
+        updateContributions(data);
+        saveLastContributions(data);
+      },
+      error: function(data, status) {
+        updateContributions('<h2 class="tip"><i class="fa fa-github"></i>&nbsp;Github</h2><h4 class="tip">抱歉,没有找到该账号的贡献信息</h4>');
+      }
+    })
+  }
+});
+</script>

@@ -231,6 +231,11 @@ $(function() {
       layout:"center"
     },
     {
+      name:"githubContributions",
+      label:"Github贡献",
+      layout:"close"
+    },
+    {
       name:"bilibiliquick",
       label:"bilibili快速入口",
       layout:"close"
