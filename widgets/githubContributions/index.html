@@ -22,8 +22,8 @@
 
 <script>
 $(function(){
-  var updateContributions = function(weatherData){
-    $('#githubContributions').html(weatherData);
+  var updateContributions = function(contributionsData){
+    $('#githubContributions').html(contributionsData);
   }
   var saveLastContributions = function(contributionsData){
     var temp = Core.widgetSettings.get("githubContributions");
