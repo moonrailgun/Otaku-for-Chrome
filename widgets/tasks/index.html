@@ -69,7 +69,7 @@ $(function(){
     var ws = Core.widgetSettings.get("tasks");
     $.each(ws, function(index, el){
       var html = '<li><input class="task-check" type="checkbox" '+(el.isCompleted?"checked":"")+'>';
-      html += '<span class="task-content">'+el.content+'</span>';
+      html += '<span class="task-content" title="'+el.content+'">'+el.content+'</span>';
       html += '<i class="fa fa-trash delete"></i></li>';
       $('#tasks .task-list').append(html);
     });
