@@ -1,6 +1,7 @@
 {
     "background": {
-      "scripts": ["js/background.js"]
+      "scripts": ["js/background.js"],
+      "persistent": false
     },
     "chrome_url_overrides": {
       "newtab": "index.html"
@@ -18,7 +19,7 @@
   		"128": "icon/128.png"
   	},
     "options_page": "index.html",
-    "permissions": ["background", "management", "topSites", "bookmarks", "unlimitedStorage", "identity", "http://*/", "https://*/","http://*/*","http://*.baidu.com/*", "chrome://favicon/", "history", "alarms", "notifications", "tabs", "storage","topSites", "activeTab", "declarativeContent", "webNavigation", "webRequest", "webRequestBlocking", "cookies"],
+    "permissions": ["management", "topSites", "bookmarks", "unlimitedStorage", "identity", "http://*/", "https://*/","http://*/*","http://*.baidu.com/*", "chrome://favicon/", "history", "alarms", "notifications", "tabs", "storage","topSites", "activeTab", "declarativeContent", "webNavigation", "webRequest", "webRequestBlocking", "cookies"],
     "version": "1.4.2",
     "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
 }
