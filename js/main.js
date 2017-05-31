@@ -257,8 +257,8 @@ $(function() {
     }
   ];
   var widgetLayout = Core.settings.get("widgetLayout");
-  if(!widgetLayout){
-    //默认布局
+  if($.isEmptyObject(widgetLayout)){
+    //如果为空则设为默认布局
     widgetLayout = defaultWidgetLayout;
     Core.settings.set("widgetLayout", widgetLayout);
   }else{

@@ -22,10 +22,12 @@
 <script>
 $(function(){
   var updateWeather = function(weatherData){
-    $('#weather .city').text(weatherData.city);
-    $('#weather .temperature').text(weatherData.temperature);
-    $('#weather .tips').text(weatherData.tips);
-    $('#weather .aqi').text(weatherData.aqi);
+    if(weatherData) {
+      $('#weather .city').text(weatherData.city);
+      $('#weather .temperature').text(weatherData.temperature);
+      $('#weather .tips').text(weatherData.tips);
+      $('#weather .aqi').text(weatherData.aqi);
+    }
   }
   var saveLastWeather = function(weatherData){
     var temp = Core.widgetSettings.get("weather");
