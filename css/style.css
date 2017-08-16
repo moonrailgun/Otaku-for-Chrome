@@ -103,6 +103,7 @@ input[type="checkbox"][disabled]:checked {
   display: flex;
   background: rgba(255, 255, 255, 0.8);
   z-index: 1;
+  box-shadow: rgba(0, 0, 0, 0.15) 1px 4px 12px;
 }
 
 #toolbar > div{
@@ -257,6 +258,7 @@ input[type="checkbox"][disabled]:checked {
   position: relative;
   flex-shrink: 0;
   -webkit-flex-shrink: 0;
+  box-shadow: rgba(0, 0, 0, 0.15) 1px 4px 12px;
 }
 #all .otk-panel.otk-panel-fixed{
   flex-grow: 0;
