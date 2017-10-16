@@ -17,8 +17,12 @@
   padding: 0 6px;
   margin: 0;
 }
-#translate .result p:before{
+#translate .result > p:before{
   content: '- ';
+}
+#translate .result .tip {
+  color: #666;
+  font-size: 14px;
 }
 </style>
 
@@ -42,7 +46,7 @@ $(function(){
     })
   }
 
-  $('#translate .input').bind("keyup change",function(event){
+  $('#translate .input').bind("keyup change", _.debounce(function(event){
     var query = $('#translate .input').val();
     query = $.trim(query);
     if(query != ""){
@@ -70,16 +74,37 @@ $(function(){
             query:query
           },
           success:function(data){
+            var addon = [];
+            if(data.dict_result && data.dict_result.simple_means) {
+              let sm = data.dict_result.simple_means;
+              if(sm.word_means) {
+                addon.push(sm.word_means.join('; '));
+              }else {
+                addon.push('');
+              }
+              if(sm.symbols) {
+                addon.push({am: sm.symbols[0].ph_am, amv: sm.symbols[0].ph_am_mp3, en: sm.symbols[0].ph_en, env: sm.symbols[0].ph_en_mp3});
+              }else {
+                addon.push({am:'',amv:'',en:'',env:''});
+              }
+            }
+
             var transResult = data.trans_result.data;
             var result = $('#translate .result');
             result.html('');
-            $.each(transResult,function(index, el) {
+            $.each(transResult, function(index, el) {
               result.append('<p>'+el.dst+'</p>');
+              if(addon.length > 0) {
+                let symbols='[美]'+addon[1].am+' [英]'+addon[1].en;
+                result.append('<div class="tip"><p>'+symbols+'</p><p>'+addon[0]+'</p></div>')
+              }
             });
           }
         })
       });
+    }else {
+      $('#translate .result').html('');
     }
-  })
+  }, 200))
 })
 </script>
