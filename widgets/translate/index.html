@@ -83,7 +83,7 @@ $(function(){
                 addon.push('');
               }
               if(sm.symbols) {
-                addon.push({am: sm.symbols[0].ph_am, amv: sm.symbols[0].ph_am_mp3, en: sm.symbols[0].ph_en, env: sm.symbols[0].ph_en_mp3});
+                addon.push({am: sm.symbols[0].ph_am || '', amv: sm.symbols[0].ph_am_mp3 || '', en: sm.symbols[0].ph_en || '', env: sm.symbols[0].ph_en_mp3 || ''});
               }else {
                 addon.push({am:'',amv:'',en:'',env:''});
               }
@@ -95,7 +95,13 @@ $(function(){
             $.each(transResult, function(index, el) {
               result.append('<p>'+el.dst+'</p>');
               if(addon.length > 0) {
-                let symbols='[美]'+addon[1].am+' [英]'+addon[1].en;
+                let symbols='';
+                if(addon[1].am) {
+                  symbols += '[美]'+addon[1].am+' ';
+                }
+                if(addon[1].en) {
+                  symbols += '[英]'+addon[1].en;
+                }
                 result.append('<div class="tip"><p>'+symbols+'</p><p>'+addon[0]+'</p></div>')
               }
             });
