@@ -1,0 +1,48 @@
+<style>
+#colornamed {
+  padding: 10px;
+}
+
+#colornamed .result {
+  margin: 6px 0;
+  min-height: 1.5em;
+  user-select: auto;
+}
+#colornamed .result .colorblock {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+}
+</style>
+
+<div id="colornamed">
+  <h3>颜色命名</h3>
+  <input class="color-input" type="text" placeholder="输入颜色Hex代码 #...">
+  <p class="result"></p>
+</div>
+
+<script type="text/javascript">
+$.getScript('widgets/colornamed/ntc.js', function () {
+  $('#colornamed .color-input').bind('keyup change', _.debounce(function() {
+    var color = $(this).val();
+    if(!color) {
+      $('#colornamed .result').text('');
+      return;
+    }
+    var n_match  = ntc.name(color);
+    var n_rgb = n_match[0]; // This is the RGB value of the closest matching color
+    var n_name = n_match[1]; // This is the text string for the name of the match
+    var n_exactmatch = n_match[2]; // True if exact color match, False if close-match
+
+    let str = '';
+    if(n_exactmatch) {
+      str += '匹配颜色:';
+    }else {
+      str += '相近颜色:';
+    }
+    var colorblock = '<span class="colorblock" style="background-color: '+n_rgb+'"></span>';
+    str += n_name + '('+colorblock+n_rgb+')';
+    $('#colornamed .result').html(str);
+  }, 200));
+});
+</script>
