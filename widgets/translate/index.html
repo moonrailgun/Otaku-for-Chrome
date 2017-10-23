@@ -33,7 +33,7 @@
 </div>
 
 <script>
-$(function(){
+$(function() {
   var langdetect = function(query, cb){
     $.ajax({
       url: 'http://fanyi.baidu.com/langdetect',
@@ -46,10 +46,11 @@ $(function(){
     })
   }
 
+  var transapiAjax;
   $('#translate .input').bind("keyup change", _.debounce(function(event){
     var query = $('#translate .input').val();
     query = $.trim(query);
-    if(query != ""){
+    if(query != "") {
       langdetect(query, function(json){
         var lan = json.lan;
         var from = lan;
@@ -62,7 +63,8 @@ $(function(){
           to = "zh";
         }
 
-        $.ajax({
+        if(transapiAjax != null) transapiAjax.abort();
+        transapiAjax = $.ajax({
           url: 'http://fanyi.baidu.com/v2transapi',
           type: 'POST',
           dataType: 'json',
