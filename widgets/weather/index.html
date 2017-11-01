@@ -6,6 +6,16 @@
 #weather .city{
   font-size: 30px;
 }
+#weather .city small {
+  color: #575757;
+  font-size: 16px;
+  margin-left: 4px;
+}
+
+#weather .city span {
+  font-size: 24px;
+  margin-left: 16px;
+}
 #weather .tips{
   font-size: 8px;
   color: #575757;
@@ -14,7 +24,7 @@
 
 <div id="weather">
   <h2 class="city"></h2>
-  <p>温度:<span class="temperature"></span>℃</p>
+  <p><span class="temperature"></span></p>
   <p>空气质量:<span class="aqi"></span></p>
   <p><span class="tips"></span></p>
 </div>
@@ -23,8 +33,17 @@
 $(function(){
   var updateWeather = function(weatherData){
     if(weatherData) {
-      $('#weather .city').text(weatherData.city);
-      $('#weather .temperature').text(weatherData.temperature);
+      var city = weatherData.city;
+      var temperature = '当前 ' + weatherData.temperature + "℃";
+      if(weatherData.forecast && weatherData.forecast[0]) {
+        var curForecast = weatherData.forecast[0];
+        city += '<small>('+curForecast.date+')</small>';
+        temperature += '; ' + curForecast.high + '; ' + curForecast.low;
+        city += '<span>'+curForecast.type+'</span>';
+      }
+
+      $('#weather .city').html(city);
+      $('#weather .temperature').text(temperature);
       $('#weather .tips').text(weatherData.tips);
       $('#weather .aqi').text(weatherData.aqi);
     }
