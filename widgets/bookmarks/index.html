@@ -143,6 +143,10 @@ $(function(){
     }else{
       updateFullBookmarks();
     }
+  }).keydown(function(event) {
+    if(event.keyCode == 13) {
+      $(this).blur();
+    }
   });
 })
 </script>

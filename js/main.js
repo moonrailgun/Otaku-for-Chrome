@@ -1,5 +1,5 @@
 $(function() {
-  $('.search').bind('keyup change',function(event) {
+  $('.search').bind('keyup change', _.debounce(function(event) {
     var keycode = event.keyCode;
     if(keycode == 38 ||keycode == 40){
       return;
@@ -32,7 +32,7 @@ $(function() {
     }else{
       Search.hideSearchSuggestions();
     }
-  });
+  }, 200));
 
   $('.search').bind('search',function(e){
     var searchText = Search.getCurrentVal();
