@@ -1,4 +1,22 @@
 <style>
+@-webkit-keyframes twinkling{    /*透明度由0到1*/
+  0%{
+    opacity:1;
+  }
+  20%{
+    opacity:1;
+  }
+  50%{
+    opacity:0;
+  }
+  80%{
+    opacity:1;
+  }
+  100%{
+    opacity:1;
+  }
+}
+
 #hitokoto{
   padding: 20px 6px;
 }
@@ -12,6 +30,29 @@
   text-align: center;
   width: 90%;
   margin-top: -40px;
+  line-height: 1.5em;
+}
+
+#hitokoto .fa-refresh {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  cursor: pointer;
+  color: grey;
+}
+
+#hitokoto .fa-refresh:hover {
+  color: black;
+}
+
+#hitokoto .hitokoto.typer:after {
+  content: ' ';
+  height: .2em;
+  width: 1em;
+  background-color: black;
+  display: inline-block;
+  margin-bottom: -2px;
+  animation: twinkling 1.4s infinite ease-in-out;
 }
 </style>
 
@@ -20,19 +61,46 @@
   <!-- <h3 class="hitokoto"></h3> -->
   <center><p class="hitokoto text"></p></center>
   <p style="text-align:right;margin-top:-40px" class="text">』</p>
+  <i class="fa fa-refresh" title="刷新"></i>
   <p style="text-align:right" class="text_author">-「<span class="from"></span>」</p>
   <!-- <p class="from"></p> -->
 </div>
 
 <script>
 $(function(){
+  var curve = function(length, i) {
+    return 1 - Math.sin((length - i)/length * Math.PI);
+  }
+  var canLoad = true;
   var saveLastData = function(data){
     var temp = Core.widgetSettings.get("hitokoto") || {};
-    temp.lastData = data
+    temp.lastData = data;
     Core.widgetSettings.set("hitokoto",temp);
   }
-  var updateData = function(data){
-    $('#hitokoto .hitokoto').text(data.hitokoto);
+  var updateData = function(data, typer) {
+    if(!canLoad) {
+      return;
+    }
+
+    if(!typer) {
+      $('#hitokoto .hitokoto').removeClass('typer').text(data.hitokoto);
+    }else {
+      $('#hitokoto .hitokoto').addClass('typer').text('');
+      var index = 1;
+      var textLength = data.hitokoto.length;
+      var insertText = function() {
+        canLoad = false;
+        if(index === data.hitokoto.length) {
+          canLoad = true;
+          return;
+        }
+        $('#hitokoto .hitokoto').text(data.hitokoto.substring(0, index));
+        index++;
+        // setTimeout(insertText, curve(textLength, index) * 300);
+        setTimeout(insertText, Math.random() * 300);
+      }
+      insertText();
+    }
     $('#hitokoto .from').text(data.from);
   }
   var settings = Core.widgetSettings.get("hitokoto");
@@ -49,5 +117,16 @@ $(function(){
     updateData(data);
     saveLastData(data);
   });
+
+  $('#hitokoto .fa-refresh').click(function() {
+    $.getJSON(url, function(json, textStatus) {
+      var data = {
+        hitokoto:json.hitokoto,
+        from: json.from
+      }
+      updateData(data, true);
+      saveLastData(data);
+    });
+  })
 })
 </script>
