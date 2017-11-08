@@ -90,7 +90,7 @@ $(function(){
       var textLength = data.hitokoto.length;
       var insertText = function() {
         canLoad = false;
-        if(index === data.hitokoto.length) {
+        if(index > data.hitokoto.length) {
           canLoad = true;
           return;
         }
