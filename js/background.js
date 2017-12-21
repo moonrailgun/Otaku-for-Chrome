@@ -27,7 +27,7 @@
 
   // 设置圣诞帽
 	function isChristmasPeriod(){
-		var nowDate = new Date('2017-10-10');
+		var nowDate = new Date();
 		var isEndNovember = (nowDate.getMonth() == 10 && nowDate.getDate() >= 28);
 		var isDecember = (nowDate.getMonth() == 11);
 		var isStartJanuary = (nowDate.getMonth() == 0 && nowDate.getDate() <= 8);
