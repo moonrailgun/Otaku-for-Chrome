@@ -20,6 +20,6 @@
   	},
     "options_page": "index.html",
     "permissions": ["management", "topSites", "bookmarks", "unlimitedStorage", "identity", "http://*/", "https://*/","http://*/*","http://*.baidu.com/*", "chrome://favicon/", "history", "alarms", "notifications", "tabs", "storage","topSites", "activeTab", "declarativeContent", "webNavigation", "webRequest", "webRequestBlocking", "cookies"],
-    "version": "1.4.15",
+    "version": "1.4.16",
     "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
 }
