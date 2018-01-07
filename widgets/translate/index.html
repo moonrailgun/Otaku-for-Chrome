@@ -17,6 +17,10 @@
   padding: 0 6px;
   margin: 0;
 }
+#translate .result .fa{
+  margin-left: 2px;
+  cursor: pointer;
+}
 #translate .result > p:before{
   content: '- ';
 }
@@ -30,6 +34,7 @@
   <h3>百度即时翻译</h3>
   <textarea class="input" rows="2" placeholder="在此输入文字"></textarea>
   <span class="result"></span>
+  <audio class="audio" style="display: none;"></audio>
 </div>
 
 <script>
@@ -148,11 +153,20 @@ $(function() {
               result.append('<p>'+el.dst+'</p>');
               if(addon.length > 0) {
                 let symbols='';
+                let voiceParam = {
+                  source: 'web',
+                  text: query,
+                  spd: 3
+                }
                 if(addon[1].am) {
-                  symbols += '[美]'+addon[1].am+' ';
+                  voiceParam.lan = 'en';
+                  var audioSrc = 'http://fanyi.baidu.com/gettts?' + $.param(voiceParam);
+                  symbols += '[美]'+addon[1].am+'<i class="fa fa-volume-up translate-tts" data-src="'+audioSrc+'"></i>'+' ';
                 }
                 if(addon[1].en) {
-                  symbols += '[英]'+addon[1].en;
+                  voiceParam.lan = 'uk';
+                  var audioSrc = 'http://fanyi.baidu.com/gettts?' + $.param(voiceParam);
+                  symbols += '[英]'+addon[1].en+'<i class="fa fa-volume-up translate-tts" data-src="'+audioSrc+'"></i>';
                 }
                 result.append('<div class="tip"><p>'+symbols+'</p><p>'+addon[0]+'</p></div>')
               }
@@ -164,6 +178,11 @@ $(function() {
       $('#translate .result').html('');
     }
   }, 200))
+
+  $('#translate .result').on('click', '.translate-tts', function() {
+    var src = $(this).data('src');
+    $('#translate .audio').attr('src', src).get(0).play();
+  })
 
   var settings = Core.widgetSettings.get("translate");
   if(!settings || new Date().getTime()-settings.updateAt>1000 * 60 * 60 * 10) {// 每10分钟更新一次
