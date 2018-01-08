@@ -2,8 +2,8 @@ html,body{
   height: 100%;
   width: 100%;
   margin: 0;
-  user-select:none;
-  -webkit-user-select: none;
+  /* user-select:none;
+  -webkit-user-select: none; */
   overflow: hidden;
 }
 
@@ -104,6 +104,8 @@ input[type="checkbox"][disabled]:checked {
   background: rgba(255, 255, 255, 0.8);
   z-index: 1;
   box-shadow: rgba(0, 0, 0, 0.15) 1px 4px 12px;
+  user-select:none;
+  -webkit-user-select: none;
 }
 
 #toolbar > div{
@@ -273,6 +275,11 @@ input[type="checkbox"][disabled]:checked {
 #all .otk-panel.otk-panel-shrink{
   flex-shrink: 1;
   -webkit-flex-shrink: 1;
+}
+
+#all .otk-panel > div{
+  user-select:none;
+  -webkit-user-select: none;
 }
 
 #all input[type="text"],#all textarea{
