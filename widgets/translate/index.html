@@ -189,7 +189,7 @@ $(function() {
   })
 
   var settings = Core.widgetSettings.get("translate");
-  if(!settings || new Date().getTime()-settings.updateAt>1000 * 60 * 60 * 10) {// 每10分钟更新一次
+  if(!settings || new Date().getTime()-settings.updateAt > 1000 * 60 * 30) {// 每30分钟更新一次
     fetchToken();
   }else {
     gloGtk = settings.gtk;
