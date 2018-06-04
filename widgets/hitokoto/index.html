@@ -108,7 +108,7 @@ $(function(){
     updateData(settings.lastData);
   }
 
-  var url = 'http://api.hitokoto.cn/';
+  var url = 'https://v1.hitokoto.cn/';
   $.getJSON(url, function(json, textStatus) {
     var data = {
       hitokoto:json.hitokoto,
