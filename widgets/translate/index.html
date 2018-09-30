@@ -103,81 +103,85 @@ $(function() {
   }
 
   var transapiAjax;
+  var autoTranslate = function(query) {
+    langdetect(query, function(json){
+      var lan = json.lan;
+      var from = lan;
+      var to;
+      if(from == "en"){
+        to = "zh";
+      }else if(from == "zh"){
+        to = "en";
+      }else{
+        to = "zh";
+      }
+      var sign = getSign(query, gloGtk);
+
+      if(transapiAjax != null) transapiAjax.abort();
+      transapiAjax = $.ajax({
+        url: 'https://fanyi.baidu.com/v2transapi',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+          from: from,
+          to:to,
+          transtype:'realtime',
+          simple_means_flag:3,
+          query:query,
+          sign:sign,
+          token:gloToken
+        },
+        success:function(data){
+          var addon = [];
+          if(data.dict_result && data.dict_result.simple_means) {
+            let sm = data.dict_result.simple_means;
+            if(sm.word_means) {
+              addon.push(sm.word_means.join('; '));
+            }else {
+              addon.push('');
+            }
+            if(sm.symbols) {
+              addon.push({am: sm.symbols[0].ph_am || '', amv: sm.symbols[0].ph_am_mp3 || '', en: sm.symbols[0].ph_en || '', env: sm.symbols[0].ph_en_mp3 || ''});
+            }else {
+              addon.push({am:'',amv:'',en:'',env:''});
+            }
+          }
+
+          var transResult = data.trans_result.data;
+          var result = $('#translate .result');
+          result.html('');
+          $.each(transResult, function(index, el) {
+            result.append('<p>'+el.dst+'</p>');
+            if(addon.length > 0) {
+              let symbols='';
+              let voiceParam = {
+                source: 'web',
+                text: query,
+                spd: 3
+              }
+              if(addon[1].am) {
+                voiceParam.lan = 'en';
+                var audioSrc = 'https://fanyi.baidu.com/gettts?' + $.param(voiceParam);
+                symbols += '[美]'+addon[1].am+'<i class="fa fa-volume-up translate-tts" data-src="'+audioSrc+'"></i>'+' ';
+              }
+              if(addon[1].en) {
+                voiceParam.lan = 'uk';
+                var audioSrc = 'https://fanyi.baidu.com/gettts?' + $.param(voiceParam);
+                symbols += '[英]'+addon[1].en+'<i class="fa fa-volume-up translate-tts" data-src="'+audioSrc+'"></i>';
+              }
+              result.append('<div class="tip"><p>'+symbols+'</p><p>'+addon[0]+'</p></div>')
+            }
+          });
+        }
+      })
+    });
+  }
+
   $('#translate .input').bind("keyup change", _.debounce(function(event){
     var query = $('#translate .input').val();
     query = $.trim(query);
     if(query != "") {
-      langdetect(query, function(json){
-        var lan = json.lan;
-        var from = lan;
-        var to;
-        if(from == "en"){
-          to = "zh";
-        }else if(from == "zh"){
-          to = "en";
-        }else{
-          to = "zh";
-        }
-        var sign = getSign(query, gloGtk);
-
-        if(transapiAjax != null) transapiAjax.abort();
-        transapiAjax = $.ajax({
-          url: 'https://fanyi.baidu.com/v2transapi',
-          type: 'POST',
-          dataType: 'json',
-          data: {
-            from: from,
-            to:to,
-            transtype:'realtime',
-            simple_means_flag:3,
-            query:query,
-            sign:sign,
-            token:gloToken
-          },
-          success:function(data){
-            var addon = [];
-            if(data.dict_result && data.dict_result.simple_means) {
-              let sm = data.dict_result.simple_means;
-              if(sm.word_means) {
-                addon.push(sm.word_means.join('; '));
-              }else {
-                addon.push('');
-              }
-              if(sm.symbols) {
-                addon.push({am: sm.symbols[0].ph_am || '', amv: sm.symbols[0].ph_am_mp3 || '', en: sm.symbols[0].ph_en || '', env: sm.symbols[0].ph_en_mp3 || ''});
-              }else {
-                addon.push({am:'',amv:'',en:'',env:''});
-              }
-            }
-
-            var transResult = data.trans_result.data;
-            var result = $('#translate .result');
-            result.html('');
-            $.each(transResult, function(index, el) {
-              result.append('<p>'+el.dst+'</p>');
-              if(addon.length > 0) {
-                let symbols='';
-                let voiceParam = {
-                  source: 'web',
-                  text: query,
-                  spd: 3
-                }
-                if(addon[1].am) {
-                  voiceParam.lan = 'en';
-                  var audioSrc = 'https://fanyi.baidu.com/gettts?' + $.param(voiceParam);
-                  symbols += '[美]'+addon[1].am+'<i class="fa fa-volume-up translate-tts" data-src="'+audioSrc+'"></i>'+' ';
-                }
-                if(addon[1].en) {
-                  voiceParam.lan = 'uk';
-                  var audioSrc = 'https://fanyi.baidu.com/gettts?' + $.param(voiceParam);
-                  symbols += '[英]'+addon[1].en+'<i class="fa fa-volume-up translate-tts" data-src="'+audioSrc+'"></i>';
-                }
-                result.append('<div class="tip"><p>'+symbols+'</p><p>'+addon[0]+'</p></div>')
-              }
-            });
-          }
-        })
-      });
+      autoTranslate(query);
     }else {
       $('#translate .result').html('');
     }
