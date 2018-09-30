@@ -132,6 +132,11 @@ $(function() {
           token:gloToken
         },
         success:function(data){
+          if(data.error && data.error === 998) {
+            // token 过期， 重新请求token
+            fetchToken();
+          }
+
           var addon = [];
           if(data.dict_result && data.dict_result.simple_means) {
             let sm = data.dict_result.simple_means;
