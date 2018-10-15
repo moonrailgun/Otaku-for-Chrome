@@ -135,6 +135,7 @@ $(function() {
           if(data.error && data.error === 998) {
             // token 过期， 重新请求token
             fetchToken();
+            return;
           }
 
           var addon = [];
