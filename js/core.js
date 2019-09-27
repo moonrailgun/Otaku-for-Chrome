@@ -218,6 +218,7 @@ $(function(){
         $('#settings .content').append(html);
       }
     },
+    storage: window.chrome.storage.sync,
     //FileSystem
     getPicBlob:function(url, callback){
       var oReq = new XMLHttpRequest();
