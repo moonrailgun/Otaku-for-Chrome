@@ -9,7 +9,7 @@ $(function() {
     if(searchStr != ""){
       Search.showSearchSuggestions();
       $.ajax({
-        url: 'http://suggestion.baidu.com/',
+        url: 'https://suggestion.baidu.com/',
         type: 'GET',
         dataType: 'text',
         data: {

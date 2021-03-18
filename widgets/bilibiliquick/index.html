@@ -27,7 +27,7 @@ $(function(){
     console.log(avcode);
     console.log(avcode.substring(2));
     $.ajax({
-      url: 'http://www.bilibilijj.com/API/GetAvTitle',
+      url: 'https://www.bilibilijj.com/API/GetAvTitle',
       type: 'POST',
       dataType: 'json',
       data: {
@@ -57,7 +57,7 @@ $(function(){
     }
 
     if(event.keyCode == 13){
-      var url = "http://www.bilibili.com/video/" + avcode;
+      var url = "https://www.bilibili.com/video/" + avcode;
       window.open(url, "_self");
     }else{
       getAvTitle(avcode,function(data){

@@ -256,7 +256,7 @@ $(function(){
     },
     //壁纸
     randomLoadWallPaper:function(){
-      var url = "http://img.infinitynewtab.com/wallpaper/"+ (Math.floor(4050 * Math.random()) + 1) +".jpg";
+      var url = "https://img.infinitynewtab.com/wallpaper/"+ (Math.floor(4050 * Math.random()) + 1) +".jpg";
       // console.log(url);
       Core.getPicBlob(url,function(blob){
         // console.log(blob);
