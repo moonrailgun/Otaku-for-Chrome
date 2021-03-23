@@ -19,7 +19,7 @@
   		"128": "icon/128.png"
   	},
     "options_page": "index.html",
-    "permissions": ["topSites", "bookmarks", "unlimitedStorage", "chrome://favicon/", "history", "storage", "https://*.baidu.com/*"],
+    "permissions": ["topSites", "bookmarks", "unlimitedStorage", "chrome://favicon/", "storage", "https://*.baidu.com/*"],
     "version": "1.4.26",
     "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
 }
